@@ -8,9 +8,9 @@ public class ItemVenda {
     private Produto produto;
     private int quantidade;
 
-    ItemVenda(LocalDate data, double total, Produto produto, int quantidade) {
+    ItemVenda(LocalDate data, Produto produto, int quantidade) {
         this.data = data;
-        this.total = total;
+        this.total = produto.getPreco() * quantidade;
         this.produto = produto;
         this.quantidade = quantidade;
     }
