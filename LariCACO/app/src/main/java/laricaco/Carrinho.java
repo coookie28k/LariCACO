@@ -30,6 +30,21 @@ public class Carrinho {
 
     public void adicionarItem(Produto prod, int quant) {
         ItemVenda item = new ItemVenda(LocalDate.now(), prod, quant);
-        itens.add(item);
+        this.itens.add(item);
+    }
+
+    public void removerItem(Produto prod) {
+        for (ItemVenda i : this.itens) {
+            if (i.getProduto() == prod)
+                this.itens.remove(i);
+        }
+    }
+
+    public double calcularTotal() {
+        double total = 0;
+        for (ItemVenda i : this.itens) {
+            total += i.getTotal();
+        }
+        return total;
     }
 }
