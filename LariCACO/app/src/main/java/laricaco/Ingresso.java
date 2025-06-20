@@ -4,7 +4,7 @@
  * Material usado na disciplina MC322 - Programação orientada a objetos.
  */
 
-package lab02;
+package laricaco;
 
 /**
  * Contém a estrutura de implementação de um Ingresso.
@@ -16,7 +16,8 @@ public class Ingresso {
 
     /**
      * Construtor da classe Ingresso
-     * @param preco o preço do Ingresso
+     * 
+     * @param preco  o preço do Ingresso
      * @param evento o evento associado ao Ingresso
      */
     public Ingresso(Evento evento, double preco) {
@@ -26,6 +27,7 @@ public class Ingresso {
 
     /**
      * Retorna o preço do Ingresso
+     * 
      * @return o preço do Ingresso
      */
     public double getPreco() {
@@ -35,6 +37,7 @@ public class Ingresso {
 
     /**
      * Define o evento associado ao Ingresso
+     * 
      * @param evento o evento associado ao Ingresso
      */
     public void setEvento(Evento evento) {

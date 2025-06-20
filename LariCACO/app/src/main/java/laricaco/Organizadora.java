@@ -1,4 +1,4 @@
-package lab02;
+package laricaco;
 
 public class Organizadora {
 
@@ -8,8 +8,9 @@ public class Organizadora {
 
     /**
      * Construtor da classe Organizadora
-     * @param nome o nome da organizadora
-     * @param cnpj o CNPJ da organizadora
+     * 
+     * @param nome     o nome da organizadora
+     * @param cnpj     o CNPJ da organizadora
      * @param endereco o endereço da organizadora
      */
     public Organizadora(String nome, int cnpj, String endereco) {
@@ -18,6 +19,4 @@ public class Organizadora {
         this.endereco = endereco;
     }
 
-    
-    
 }
