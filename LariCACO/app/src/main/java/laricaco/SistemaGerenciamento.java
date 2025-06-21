@@ -3,6 +3,7 @@ package laricaco;
 import java.util.ArrayList;
 import java.util.List;
 
+import laricaco.Exceptions.ProdutoNaoEncontradoException;
 import laricaco.Exceptions.QuantidadeInvalidaException;
 import laricaco.Exceptions.SaldoInsuficienteException;
 
@@ -133,14 +134,24 @@ public class SistemaGerenciamento {
         return a;
     }
 
-    public void removerProduto(int id) {
+    public void removerProduto(int id) throws Exception {
         for (Produto p : produtos) {
             if (p.getId() == id) {
                 produtos.remove(p);
                 return;
             }
         }
-        // adicionar erro se não encontrar o produto
+        throw new ProdutoNaoEncontradoException();
+    }
+
+    public void removerProduto(String nome) throws Exception {
+        for (Produto p : produtos) {
+            if (p.getNome() == nome) {
+                produtos.remove(p);
+                return;
+            }
+        }
+        throw new ProdutoNaoEncontradoException();
     }
 
     public Vendedor virarVendedor(Usuario usuario, String senha) {
