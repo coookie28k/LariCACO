@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import laricaco.Exceptions.EstoqueInsuficienteException;
+
 public class Carrinho {
     private List<ItemVenda> itens;
     private boolean status;
@@ -29,9 +31,13 @@ public class Carrinho {
         this.status = status;
     }
 
-    public void adicionarItem(Produto prod, int quant) {
-        ItemVenda item = new ItemVenda(LocalDate.now(), prod, quant);
-        this.itens.add(item);
+    public void adicionarItem(Produto prod, int quant) throws Exception {
+        if (prod.getEstoque() < quant) {
+            throw new EstoqueInsuficienteException();
+        } else {
+            ItemVenda item = new ItemVenda(LocalDate.now(), prod, quant);
+            this.itens.add(item);
+        }
     }
 
     public void removerItem(Produto prod) {

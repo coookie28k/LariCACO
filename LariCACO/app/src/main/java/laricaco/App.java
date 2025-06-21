@@ -11,7 +11,7 @@ public class App {
      * 
      * @param args
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         SistemaGerenciamento caco = new SistemaGerenciamento(0.1, 0);
         Usuario lina = caco.criarUsuario("lina@mail.com", "senha123", 200);
@@ -19,6 +19,7 @@ public class App {
         Vendedor vendedor = caco.virarVendedor(vend, "senha456");
 
         Doce brigadeiro = caco.cadastrarDoce("brigadeiro", 5, "Brigadeiro!", 10, vendedor);
+        Salgado coxinha = caco.cadastrarSalgado("coxinha", 5, "Coxinha!", 10, vendedor);
         lina.getCarrinho().adicionarItem(brigadeiro, 2);
 
         System.out.println("Saldo de lina: " + lina.getSaldo());
@@ -28,6 +29,10 @@ public class App {
 
         System.out.println("\nSaldo de lina: " + lina.getSaldo());
         System.out.println("Saldo de vendedor: " + vendedor.getSaldo());
-        System.out.println("Saldo de caco: " + caco.getSaldo());
+        System.out.println("Saldo de caco: " + caco.getSaldo() + "\n");
+
+        vendedor.imprimirVendas();
+        vendedor.imprimirProdutos();
+        caco.imprimirProdutos();
     }
 }

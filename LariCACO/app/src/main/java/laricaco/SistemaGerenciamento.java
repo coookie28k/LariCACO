@@ -3,6 +3,9 @@ package laricaco;
 import java.util.ArrayList;
 import java.util.List;
 
+import laricaco.Exceptions.QuantidadeInvalidaException;
+import laricaco.Exceptions.SaldoInsuficienteException;
+
 public class SistemaGerenciamento {
     private double taxa;
     private double saldo;
@@ -66,8 +69,12 @@ public class SistemaGerenciamento {
         return usuario;
     }
 
-    public void realizarVenda(Usuario cliente, Usuario vendedor) {
+    public void realizarVenda(Usuario cliente, Vendedor vendedor) throws Exception {
         Carrinho c = cliente.getCarrinho();
+
+        if (cliente.getSaldo() < c.calcularTotal())
+            throw new SaldoInsuficienteException();
+
         for (ItemVenda i : c.getItens()) {
             double preco = i.getTotal();
 
@@ -79,31 +86,50 @@ public class SistemaGerenciamento {
             i.getProduto().retiraEstoque(i.getQuantidade());
 
             this.vendas.add(i);
+            vendedor.adicionarItemVenda(i);
         }
         c.setStatus(true);
     }
 
-    public Doce cadastrarDoce(String nome, double preco, String descricao, int estoque, Vendedor vendedor) {
+    public Doce cadastrarDoce(String nome, double preco, String descricao, int estoque, Vendedor vendedor)
+            throws Exception {
+
+        if (estoque <= 0)
+            throw new QuantidadeInvalidaException();
+
         Doce d = new Doce(contagemId, nome, preco, descricao, estoque);
         d.setVendedor(vendedor);
         this.produtos.add(d);
         vendedor.adicionarProduto(d);
+        contagemId += 1;
         return d;
     }
 
-    public Salgado cadastrarSalgado(String nome, double preco, String descricao, int estoque, Vendedor vendedor) {
+    public Salgado cadastrarSalgado(String nome, double preco, String descricao, int estoque, Vendedor vendedor)
+            throws Exception {
+
+        if (estoque <= 0)
+            throw new QuantidadeInvalidaException();
+
         Salgado s = new Salgado(contagemId, nome, preco, descricao, estoque);
         s.setVendedor(vendedor);
         this.produtos.add(s);
         vendedor.adicionarProduto(s);
+        contagemId += 1;
         return s;
     }
 
-    public Adesivo cadastrarAdesivo(String nome, double preco, String descricao, int estoque, Vendedor vendedor) {
+    public Adesivo cadastrarAdesivo(String nome, double preco, String descricao, int estoque, Vendedor vendedor)
+            throws Exception {
+
+        if (estoque <= 0)
+            throw new QuantidadeInvalidaException();
+
         Adesivo a = new Adesivo(contagemId, nome, preco, descricao, estoque, "pequeno");
         a.setVendedor(vendedor);
         this.produtos.add(a);
         vendedor.adicionarProduto(a);
+        contagemId += 1;
         return a;
     }
 
@@ -125,5 +151,14 @@ public class SistemaGerenciamento {
             return vendedor;
         }
         return null;
+    }
+
+    // metodo para teste
+    public void imprimirProdutos() {
+        System.out.println("Produtos do sistema:");
+        for (Produto p : this.produtos) {
+            System.out.println(p.getId() + " - " + p.getNome() + " (" + p.getEstoque() + ")");
+        }
+        System.out.println();
     }
 }

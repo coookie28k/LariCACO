@@ -40,4 +40,21 @@ public class Vendedor extends Usuario {
     public void adicionarItemVenda(ItemVenda itemVenda) {
         this.minhasVendas.add(itemVenda);
     }
+
+    // método para teste
+    public void imprimirVendas() {
+        System.out.println("Vendas de " + this.getLogin() + ":");
+        for (ItemVenda i : this.minhasVendas) {
+            System.out.println(i.getProduto().getNome() + " (" + i.getQuantidade() + ") - " + i.getDataFormatada());
+        }
+        System.out.println();
+    }
+
+    public void imprimirProdutos() {
+        System.out.println("Produtos de " + this.getLogin() + ":");
+        for (Produto i : this.meusProdutos) {
+            System.out.println(i.getNome() + " (" + i.getEstoque() + ")");
+        }
+        System.out.println();
+    }
 }
