@@ -4,6 +4,8 @@
 
 package laricaco;
 
+import java.util.List;
+
 public class App {
 
     /**
@@ -34,5 +36,10 @@ public class App {
         vendedor.imprimirVendas();
         vendedor.imprimirProdutos();
         caco.imprimirProdutos();
+
+        List<Produto> filtro = caco.filtrarPorTipo(Salgado.class);
+        System.out.println("Filtro de salgados");
+        for (Produto prod : filtro)
+            System.out.println(prod.getId() + " - " + prod.getNome() + " (" + prod.getEstoque() + ")");
     }
 }

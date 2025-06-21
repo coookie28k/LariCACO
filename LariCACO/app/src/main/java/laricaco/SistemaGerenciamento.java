@@ -7,6 +7,7 @@ import laricaco.Exceptions.LoginJaExistenteException;
 import laricaco.Exceptions.ProdutoNaoEncontradoException;
 import laricaco.Exceptions.QuantidadeInvalidaException;
 import laricaco.Exceptions.SaldoInsuficienteException;
+import laricaco.Filtros.ProdutoPorTipoFiltro;
 
 public class SistemaGerenciamento {
     private double taxa;
@@ -202,6 +203,11 @@ public class SistemaGerenciamento {
             }
         }
         return 0;
+    }
+
+    public List<Produto> filtrarPorTipo(Class<? extends Produto> tipo) {
+        ProdutoPorTipoFiltro filtro = new ProdutoPorTipoFiltro(tipo);
+        return filtro.meetFilter(this.produtos);
     }
 
     // metodo para teste

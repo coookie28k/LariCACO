@@ -1,6 +1,8 @@
 package laricaco.Filtros;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import laricaco.Filtro;
@@ -22,21 +24,24 @@ public class ItemVendaPorDataFiltro implements Filtro<ItemVenda> {
      * @throws IllegalArgumentException se {@code inicio} for depois de {@code fim}
      */
     public ItemVendaPorDataFiltro(LocalDate inicio, LocalDate fim) {
-        Objects.requireNonNull(inicio, "início não pode ser nulo");
-        Objects.requireNonNull(fim, "fim não pode ser nulo");
+        Objects.requireNonNull(inicio, "Inicio nao pode ser nulo");
+        Objects.requireNonNull(fim, "Fim nao pode ser nulo");
         if (inicio.isAfter(fim))
-            throw new IllegalArgumentException("Data inicial deve ser antes ou igual à final");
+            throw new IllegalArgumentException("Data inicial deve ser antes ou igual a final");
 
         this.inicio = inicio;
         this.fim = fim;
     }
 
     @Override
-    public boolean apply(ItemVenda venda) {
-        if (venda == null)
-            return false;
-        LocalDate d = venda.getData();
-        return (d.isEqual(inicio) || d.isAfter(inicio))
-                && (d.isEqual(fim) || d.isBefore(fim));
+    public List<ItemVenda> meetFilter(List<ItemVenda> lista) {
+        List<ItemVenda> vendasNaData = new ArrayList<>();
+        for (ItemVenda i : lista) {
+            LocalDate d = i.getData();
+            if ((d.isEqual(this.inicio) || d.isAfter(this.inicio)) && (d.isEqual(this.fim) || d.isBefore(this.fim)))
+                vendasNaData.add(i);
+        }
+
+        return vendasNaData;
     }
 }
