@@ -7,15 +7,27 @@ package laricaco;
 import java.time.LocalDate;
 import java.util.List;
 
-public class App {
+import javafx.application.Application;
+import javafx.stage.Stage;
+
+public class App extends Application {
 
     /**
      * Aplicação principal
      * 
      * @param args
      */
+    
+     public static SistemaUI sistema;
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        sistema = new SistemaUI(primaryStage);
+        sistema.mostrarTela("TelaInicial");
+    }
+
     public static void main(String[] args) throws Exception {
 
+        launch(args); 
         SistemaGerenciamento caco = new SistemaGerenciamento(0.1, 0, "caco@mail.com", "senhacaco");
         Usuario lina = caco.criarUsuario("lina@mail.com", "senha123", 200);
         Usuario vend = caco.criarUsuario("vend@mail.com", "senha456", 100);
