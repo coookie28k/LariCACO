@@ -1,10 +1,11 @@
 package laricaco;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Carrinho {
-    private List<ItemVenda> itens;
+    private List<ItemVenda> itens = new ArrayList<>();
     private boolean status;
 
     Carrinho(List<ItemVenda> itens, boolean status) {

@@ -1,10 +1,11 @@
 package laricaco;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Vendedor extends Usuario {
-    private List<ItemVenda> minhasVendas;
-    private List<Produto> meusProdutos;
+    private List<ItemVenda> minhasVendas = new ArrayList<>();
+    private List<Produto> meusProdutos = new ArrayList<>();
 
     Vendedor(String login, String senha, double saldo, Carrinho carrinho, List<ItemVenda> minhasVendas,
             List<Produto> meusProdutos) {

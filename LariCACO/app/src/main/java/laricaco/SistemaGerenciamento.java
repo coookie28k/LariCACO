@@ -6,8 +6,8 @@ import java.util.List;
 public class SistemaGerenciamento {
     private double taxa;
     private double saldo;
-    private List<Produto> produtos;
-    private List<ItemVenda> vendas;
+    private List<Produto> produtos = new ArrayList<>();
+    private List<ItemVenda> vendas = new ArrayList<>();
     private List<Usuario> usuarios = new ArrayList<>();
 
     SistemaGerenciamento(double taxa, double saldo, List<Produto> produtos, List<ItemVenda> vendas) {
@@ -74,6 +74,27 @@ public class SistemaGerenciamento {
             vendedor.adicionaSaldo(preco * (1 - this.taxa));
 
             i.getProduto().retiraEstoque(i.getQuantidade());
+
+            this.vendas.add(i);
         }
+        c.setStatus(true);
+    }
+
+    public void cadastrarProduto(Produto produto) {
+        for (Produto p : produtos) {
+            if (produto.getId() == p.getId())
+                return; // adicionar erro se já existir o id
+        }
+        produtos.add(produto);
+    }
+
+    public void removerProduto(int id) {
+        for (Produto p : produtos) {
+            if (p.getId() == id) {
+                produtos.remove(p);
+                return;
+            }
+        }
+        // adicionar erro se não encontrar o produto
     }
 }
