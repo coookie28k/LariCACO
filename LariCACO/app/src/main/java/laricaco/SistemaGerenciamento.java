@@ -3,6 +3,7 @@ package laricaco;
 import java.util.ArrayList;
 import java.util.List;
 
+import laricaco.Exceptions.LoginJaExistenteException;
 import laricaco.Exceptions.ProdutoNaoEncontradoException;
 import laricaco.Exceptions.QuantidadeInvalidaException;
 import laricaco.Exceptions.SaldoInsuficienteException;
@@ -88,7 +89,10 @@ public class SistemaGerenciamento {
         this.senha = senha;
     }
 
-    public Usuario criarUsuario(String login, String senha, double saldo) {
+    public Usuario criarUsuario(String login, String senha, double saldo) throws Exception {
+        if (this.verificarLogin(login) != 0)
+            throw new LoginJaExistenteException();
+
         Usuario usuario = new Usuario(login, senha, saldo);
         usuarios.add(usuario);
         return usuario;
