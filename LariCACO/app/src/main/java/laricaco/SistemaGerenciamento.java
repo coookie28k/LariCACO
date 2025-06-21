@@ -1,5 +1,6 @@
 package laricaco;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import laricaco.Exceptions.LoginJaExistenteException;
 import laricaco.Exceptions.ProdutoNaoEncontradoException;
 import laricaco.Exceptions.QuantidadeInvalidaException;
 import laricaco.Exceptions.SaldoInsuficienteException;
+import laricaco.Filtros.ItemVendaPorDataFiltro;
 import laricaco.Filtros.ProdutoPorTipoFiltro;
 
 public class SistemaGerenciamento {
@@ -208,6 +210,11 @@ public class SistemaGerenciamento {
     public List<Produto> filtrarPorTipo(Class<? extends Produto> tipo) {
         ProdutoPorTipoFiltro filtro = new ProdutoPorTipoFiltro(tipo);
         return filtro.meetFilter(this.produtos);
+    }
+
+    public List<ItemVenda> filtrarPorData(LocalDate inicio, LocalDate fim) {
+        ItemVendaPorDataFiltro filtro = new ItemVendaPorDataFiltro(inicio, fim);
+        return filtro.meetFilter(this.vendas);
     }
 
     // metodo para teste

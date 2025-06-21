@@ -4,6 +4,7 @@
 
 package laricaco;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class App {
@@ -37,9 +38,16 @@ public class App {
         vendedor.imprimirProdutos();
         caco.imprimirProdutos();
 
-        List<Produto> filtro = caco.filtrarPorTipo(Salgado.class);
+        List<Produto> filtroProd = caco.filtrarPorTipo(Salgado.class);
         System.out.println("Filtro de salgados");
-        for (Produto prod : filtro)
+        for (Produto prod : filtroProd)
             System.out.println(prod.getId() + " - " + prod.getNome() + " (" + prod.getEstoque() + ")");
+
+        System.out.println();
+
+        List<ItemVenda> filtroItem = caco.filtrarPorData(LocalDate.of(2025, 4, 1), LocalDate.of(2025, 6, 28));
+        System.out.println("Filtro de data");
+        for (ItemVenda it : filtroItem)
+            System.out.println(it.getProduto().getNome() + " - " + it.getDataFormatada());
     }
 }
