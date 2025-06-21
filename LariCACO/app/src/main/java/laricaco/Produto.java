@@ -7,6 +7,7 @@ public class Produto {
     private String descricao;
     private int estoque;
     private Vendedor vendedor;
+    private Tag tagproduto;
 
     // falta: promocao, tags
 
@@ -17,6 +18,15 @@ public class Produto {
         this.descricao = descricao;
         this.estoque = estoque;
         this.vendedor = null;
+        this.tagproduto = null
+    }
+
+    public String getTag(){
+        return tagproduto.getTag();
+    }
+
+    public void setTag(Tag tagnova){
+        this.tagproduto = tagnova;
     }
 
     public double getPreco() {
