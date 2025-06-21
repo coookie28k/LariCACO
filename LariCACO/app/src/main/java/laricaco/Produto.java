@@ -1,5 +1,8 @@
 package laricaco;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Produto {
     private int id;
     private String nome;
@@ -7,7 +10,7 @@ public class Produto {
     private String descricao;
     private int estoque;
     private Vendedor vendedor;
-    private Tag tagProduto;
+    private List<Tag> tagProduto;
 
     // falta: promocao, tags
 
@@ -18,15 +21,37 @@ public class Produto {
         this.descricao = descricao;
         this.estoque = estoque;
         this.vendedor = null;
-        this.tagProduto = null;
+        this.tagProduto = new ArrayList<>();
     }
 
-    public String getTag() {
-        return tagProduto.getTag();
+    public List<Tag> getTag() {
+        return tagProduto;
     }
 
-    public void setTag(Tag tagnova) {
-        this.tagProduto = tagnova;
+    public void setTag(List<Tag> tags) {
+        this.tagProduto = tags;
+    }
+
+    public void adicionarTag(Tag tag) {
+        this.tagProduto.add(tag);
+    }
+
+    public void adicionarTag(String descricao) {
+        Tag tag = new Tag(descricao);
+        this.tagProduto.add(tag);
+    }
+
+    public void removerTag(Tag tag) {
+        this.tagProduto.remove(tag);
+    }
+
+    public void removerTag(String descricao) {
+        Tag tag = null;
+        for (Tag t : this.tagProduto)
+            if (t.getTag() == descricao)
+                tag = t;
+        if (tag != null)
+            this.tagProduto.remove(tag);
     }
 
     public double getPreco() {
