@@ -4,20 +4,30 @@
 
 package laricaco;
 
-/**
- * Contém a estrutura de implementação da aplicação.
- * 
- * @author NOME - RA
- */
 public class App {
 
     /**
      * Aplicação principal
+     * 
      * @param args
      */
     public static void main(String[] args) {
 
+        SistemaGerenciamento caco = new SistemaGerenciamento(0.1, 0);
+        Usuario lina = caco.criarUsuario("lina@mail.com", "senha123", 200);
+        Usuario vend = caco.criarUsuario("vend@mail.com", "senha456", 100);
+        Vendedor vendedor = caco.virarVendedor(vend, "senha456");
 
-        // Desenvolvimento de Cenário de Uso
+        Doce brigadeiro = caco.cadastrarDoce("brigadeiro", 5, "Brigadeiro!", 10, vendedor);
+        lina.getCarrinho().adicionarItem(brigadeiro, 2);
+
+        System.out.println("Saldo de lina: " + lina.getSaldo());
+        System.out.println("Saldo de vendedor: " + vendedor.getSaldo());
+        System.out.println("Saldo de caco: " + caco.getSaldo());
+        caco.realizarVenda(lina, vendedor);
+
+        System.out.println("\nSaldo de lina: " + lina.getSaldo());
+        System.out.println("Saldo de vendedor: " + vendedor.getSaldo());
+        System.out.println("Saldo de caco: " + caco.getSaldo());
     }
 }

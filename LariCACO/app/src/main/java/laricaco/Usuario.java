@@ -6,11 +6,11 @@ public class Usuario {
     private double saldo;
     private Carrinho carrinho;
 
-    Usuario(String login, String senha, double saldo, Carrinho carrinho) {
+    Usuario(String login, String senha, double saldo) {
         this.login = login;
         this.senha = senha;
         this.saldo = saldo;
-        this.carrinho = carrinho;
+        this.carrinho = new Carrinho();
     }
 
     public String getLogin() {

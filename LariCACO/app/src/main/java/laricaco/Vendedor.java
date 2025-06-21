@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Vendedor extends Usuario {
-    private List<ItemVenda> minhasVendas = new ArrayList<>();
-    private List<Produto> meusProdutos = new ArrayList<>();
+    private List<ItemVenda> minhasVendas;
+    private List<Produto> meusProdutos;
 
-    Vendedor(String login, String senha, double saldo, Carrinho carrinho, List<ItemVenda> minhasVendas,
-            List<Produto> meusProdutos) {
-        super(login, senha, saldo, carrinho);
-        this.minhasVendas = minhasVendas;
-        this.meusProdutos = meusProdutos;
+    public Vendedor(String login, String senha, double saldo) {
+        super(login, senha, saldo);
+        this.minhasVendas = new ArrayList<>();
+        this.meusProdutos = new ArrayList<>();
     }
 
     public List<ItemVenda> getMinhasVendas() {

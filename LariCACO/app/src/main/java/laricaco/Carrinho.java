@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Carrinho {
-    private List<ItemVenda> itens = new ArrayList<>();
+    private List<ItemVenda> itens;
     private boolean status;
 
-    Carrinho(List<ItemVenda> itens, boolean status) {
-        this.itens = itens;
-        this.status = status;
+    Carrinho() {
+        this.itens = new ArrayList<>();
+        this.status = false;
     }
 
     public List<ItemVenda> getItens() {

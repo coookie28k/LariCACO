@@ -6,15 +6,18 @@ import java.util.List;
 public class SistemaGerenciamento {
     private double taxa;
     private double saldo;
-    private List<Produto> produtos = new ArrayList<>();
-    private List<ItemVenda> vendas = new ArrayList<>();
-    private List<Usuario> usuarios = new ArrayList<>();
+    private List<Produto> produtos;
+    private List<ItemVenda> vendas;
+    private List<Usuario> usuarios;
 
-    SistemaGerenciamento(double taxa, double saldo, List<Produto> produtos, List<ItemVenda> vendas) {
+    private int contagemId = 1;
+
+    public SistemaGerenciamento(double taxa, double saldo) {
         this.taxa = taxa;
         this.saldo = saldo;
-        this.produtos = produtos;
-        this.vendas = vendas;
+        this.produtos = new ArrayList<>();
+        this.vendas = new ArrayList<>();
+        this.usuarios = new ArrayList<>();
     }
 
     public double getTaxa() {
@@ -58,7 +61,7 @@ public class SistemaGerenciamento {
     }
 
     public Usuario criarUsuario(String login, String senha, double saldo) {
-        Usuario usuario = new Usuario(login, senha, saldo, null);
+        Usuario usuario = new Usuario(login, senha, saldo);
         usuarios.add(usuario);
         return usuario;
     }
@@ -80,12 +83,28 @@ public class SistemaGerenciamento {
         c.setStatus(true);
     }
 
-    public void cadastrarProduto(Produto produto) {
-        for (Produto p : produtos) {
-            if (produto.getId() == p.getId())
-                return; // adicionar erro se já existir o id
-        }
-        produtos.add(produto);
+    public Doce cadastrarDoce(String nome, double preco, String descricao, int estoque, Vendedor vendedor) {
+        Doce d = new Doce(contagemId, nome, preco, descricao, estoque);
+        d.setVendedor(vendedor);
+        this.produtos.add(d);
+        vendedor.adicionarProduto(d);
+        return d;
+    }
+
+    public Salgado cadastrarSalgado(String nome, double preco, String descricao, int estoque, Vendedor vendedor) {
+        Salgado s = new Salgado(contagemId, nome, preco, descricao, estoque);
+        s.setVendedor(vendedor);
+        this.produtos.add(s);
+        vendedor.adicionarProduto(s);
+        return s;
+    }
+
+    public Adesivo cadastrarAdesivo(String nome, double preco, String descricao, int estoque, Vendedor vendedor) {
+        Adesivo a = new Adesivo(contagemId, nome, preco, descricao, estoque, "pequeno");
+        a.setVendedor(vendedor);
+        this.produtos.add(a);
+        vendedor.adicionarProduto(a);
+        return a;
     }
 
     public void removerProduto(int id) {
@@ -96,5 +115,15 @@ public class SistemaGerenciamento {
             }
         }
         // adicionar erro se não encontrar o produto
+    }
+
+    public Vendedor virarVendedor(Usuario usuario, String senha) {
+        if (usuario.verificaSenha(senha)) {
+            Vendedor vendedor = new Vendedor(usuario.getLogin(), senha, usuario.getSaldo());
+            this.usuarios.remove(usuario);
+            this.usuarios.add(vendedor);
+            return vendedor;
+        }
+        return null;
     }
 }

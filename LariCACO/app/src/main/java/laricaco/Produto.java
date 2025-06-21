@@ -6,17 +6,17 @@ public class Produto {
     private double preco;
     private String descricao;
     private int estoque;
-    private Usuario vendedor;
+    private Vendedor vendedor;
 
     // falta: promocao, tags
 
-    Produto(int id, String nome, double preco, String descricao, int estoque, Usuario vendedor) {
+    Produto(int id, String nome, double preco, String descricao, int estoque) {
         this.id = id;
         this.nome = nome;
         this.preco = preco;
         this.descricao = descricao;
         this.estoque = estoque;
-        this.vendedor = vendedor;
+        this.vendedor = null;
     }
 
     public double getPreco() {
@@ -59,11 +59,11 @@ public class Produto {
         this.estoque = estoque;
     }
 
-    public Usuario getVendedor() {
+    public Vendedor getVendedor() {
         return vendedor;
     }
 
-    public void setVendedor(Usuario vendedor) {
+    public void setVendedor(Vendedor vendedor) {
         this.vendedor = vendedor;
     }
 
