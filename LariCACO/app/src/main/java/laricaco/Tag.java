@@ -1,17 +1,17 @@
 package laricaco;
 
 public class Tag {
-    private String descricaoTAG;
+    private String descricaoTag;
 
-    public Tag(String descricaoTAG){
-        this.descricaoTAG = descricaoTAG;
+    public Tag(String descricaoTag) {
+        this.descricaoTag = descricaoTag;
     }
 
-    public String getTag(){
-        return this.descricaoTAG;
+    public String getTag() {
+        return this.descricaoTag;
     }
 
-    public void setTag(String descricaotagnova){
-        this.descricaoTAG = descricaotagnova;
+    public void setTag(String descricaoTagNova) {
+        this.descricaoTag = descricaoTagNova;
     }
 }
