@@ -4,24 +4,48 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class ItemVenda {
-    
-    private static final DateTimeFormatter BR_FORMAT =
-            DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private double total;
+    private Produto produto;
+    private int quantidade;
+    private final LocalDate data;
+    static final DateTimeFormatter BR_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    private final LocalDate dataVenda;
-    
-    
-    
-    public ItemVenda(LocalDate dataVenda) {
-        this.dataVenda = dataVenda;
+    public ItemVenda(LocalDate data, Produto produto, int quantidade) {
+        this.data = data;
+        this.total = produto.getPreco() * quantidade;
+        this.produto = produto;
+        this.quantidade = quantidade;
     }
 
-    
-    /** Data da venda como {@link LocalDate}. */
-    public LocalDate getDataVenda() { return dataVenda; }
+    public LocalDate getData() {
+        return data;
+    }
 
-    /** Data da venda já formatada em “dd/MM/yyyy”. */
-    public String getDataVendaFormatada() {
-        return dataVenda.format(BR_FORMAT);
+    public String getDataFormatada() {
+        return data.format(BR_FORMAT);
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
 }
