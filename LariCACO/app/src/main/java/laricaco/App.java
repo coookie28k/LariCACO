@@ -22,6 +22,7 @@ public class App {
         Vendedor vendedor = caco.virarVendedor(vend, "senha456");
 
         Doce brigadeiro = caco.cadastrarDoce("brigadeiro", 5, "Brigadeiro!", 10, vendedor);
+        brigadeiro.adicionarTag("Sem lactose");
         Salgado coxinha = caco.cadastrarSalgado("coxinha", 5, "Coxinha!", 10, vendedor);
         lina.getCarrinho().adicionarItem(brigadeiro, 2);
 
@@ -49,5 +50,11 @@ public class App {
         System.out.println("Filtro de data");
         for (ItemVenda it : filtroItem)
             System.out.println(it.getProduto().getNome() + " - " + it.getDataFormatada());
+
+        System.out.println();
+        List<Produto> filtroTag = caco.filtrarPorTag("Sem lactose");
+        System.out.println("Filtro sem lactose");
+        for (Produto prod : filtroTag)
+            System.out.println(prod.getId() + " - " + prod.getNome() + " (" + prod.getEstoque() + ")");
     }
 }

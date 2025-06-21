@@ -9,6 +9,7 @@ import laricaco.Exceptions.ProdutoNaoEncontradoException;
 import laricaco.Exceptions.QuantidadeInvalidaException;
 import laricaco.Exceptions.SaldoInsuficienteException;
 import laricaco.Filtros.ItemVendaPorDataFiltro;
+import laricaco.Filtros.ProdutoPorTagFiltro;
 import laricaco.Filtros.ProdutoPorTipoFiltro;
 
 public class SistemaGerenciamento {
@@ -209,6 +210,11 @@ public class SistemaGerenciamento {
 
     public List<Produto> filtrarPorTipo(Class<? extends Produto> tipo) {
         ProdutoPorTipoFiltro filtro = new ProdutoPorTipoFiltro(tipo);
+        return filtro.meetFilter(this.produtos);
+    }
+
+    public List<Produto> filtrarPorTag(String descricao) {
+        ProdutoPorTagFiltro filtro = new ProdutoPorTagFiltro(descricao);
         return filtro.meetFilter(this.produtos);
     }
 
