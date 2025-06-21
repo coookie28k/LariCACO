@@ -15,10 +15,15 @@ public class SistemaGerenciamento {
     private List<Usuario> usuarios;
 
     private int contagemId = 1;
+    private String login;
+    private String senha;
 
-    public SistemaGerenciamento(double taxa, double saldo) {
+    public SistemaGerenciamento(double taxa, double saldo, String login, String senha) {
         this.taxa = taxa;
         this.saldo = saldo;
+        this.login = login;
+        this.senha = senha;
+
         this.produtos = new ArrayList<>();
         this.vendas = new ArrayList<>();
         this.usuarios = new ArrayList<>();
@@ -64,6 +69,25 @@ public class SistemaGerenciamento {
         this.usuarios = usuarios;
     }
 
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public boolean verificarSenha(String senha) {
+        if (senha == this.senha)
+            return true;
+        else
+            return false;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
     public Usuario criarUsuario(String login, String senha, double saldo) {
         Usuario usuario = new Usuario(login, senha, saldo);
         usuarios.add(usuario);
@@ -79,12 +103,12 @@ public class SistemaGerenciamento {
         for (ItemVenda i : c.getItens()) {
             double preco = i.getTotal();
 
-            cliente.retiraSaldo(preco);
+            cliente.retirarSaldo(preco);
 
             this.saldo += preco * this.taxa;
-            vendedor.adicionaSaldo(preco * (1 - this.taxa));
+            vendedor.adicionarSaldo(preco * (1 - this.taxa));
 
-            i.getProduto().retiraEstoque(i.getQuantidade());
+            i.getProduto().retirarEstoque(i.getQuantidade());
 
             this.vendas.add(i);
             vendedor.adicionarItemVenda(i);
@@ -155,13 +179,25 @@ public class SistemaGerenciamento {
     }
 
     public Vendedor virarVendedor(Usuario usuario, String senha) {
-        if (usuario.verificaSenha(senha)) {
+        if (usuario.verificarSenha(senha)) {
             Vendedor vendedor = new Vendedor(usuario.getLogin(), senha, usuario.getSaldo());
             this.usuarios.remove(usuario);
             this.usuarios.add(vendedor);
             return vendedor;
         }
         return null;
+    }
+
+    public int verificarLogin(String login) {
+        if (this.login == login)
+            return 2;
+        else {
+            for (Usuario u : usuarios) {
+                if (u.getLogin() == login)
+                    return 1;
+            }
+        }
+        return 0;
     }
 
     // metodo para teste

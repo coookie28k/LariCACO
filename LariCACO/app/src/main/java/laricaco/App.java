@@ -13,7 +13,7 @@ public class App {
      */
     public static void main(String[] args) throws Exception {
 
-        SistemaGerenciamento caco = new SistemaGerenciamento(0.1, 0);
+        SistemaGerenciamento caco = new SistemaGerenciamento(0.1, 0, "caco@mail.com", "senhacaco");
         Usuario lina = caco.criarUsuario("lina@mail.com", "senha123", 200);
         Usuario vend = caco.criarUsuario("vend@mail.com", "senha456", 100);
         Vendedor vendedor = caco.virarVendedor(vend, "senha456");

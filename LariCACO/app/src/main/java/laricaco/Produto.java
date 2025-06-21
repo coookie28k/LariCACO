@@ -77,11 +77,11 @@ public class Produto {
         this.vendedor = vendedor;
     }
 
-    public void retiraEstoque(int quantidade) {
+    public void retirarEstoque(int quantidade) {
         this.estoque -= quantidade;
     }
 
-    public void adicionaEstoque(int quantidade) {
+    public void adicionarEstoque(int quantidade) {
         this.estoque += quantidade;
     }
 }

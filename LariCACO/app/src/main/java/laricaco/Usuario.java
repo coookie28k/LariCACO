@@ -21,7 +21,7 @@ public class Usuario {
         this.login = login;
     }
 
-    public boolean verificaSenha(String senha) {
+    public boolean verificarSenha(String senha) {
         if (senha == this.senha)
             return true;
         else
@@ -48,11 +48,11 @@ public class Usuario {
         this.carrinho = carrinho;
     }
 
-    public void adicionaSaldo(double valor) {
+    public void adicionarSaldo(double valor) {
         this.saldo += valor;
     }
 
-    public void retiraSaldo(double valor) {
+    public void retirarSaldo(double valor) {
         this.saldo -= valor;
     }
 }
