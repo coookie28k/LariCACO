@@ -47,4 +47,12 @@ public class Usuario {
     public void setCarrinho(Carrinho carrinho) {
         this.carrinho = carrinho;
     }
+
+    public void adicionaSaldo(double valor) {
+        this.saldo += valor;
+    }
+
+    public void retiraSaldo(double valor) {
+        this.saldo -= valor;
+    }
 }
