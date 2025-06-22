@@ -70,14 +70,19 @@ public class CadastroController {
         }
 
         // Cria usuário e adiciona à lista
-        Usuario novo = new Usuario(login, senha, saldoInicial);
-        App.caco.getUsuarios().add(novo);
-
-        mostrarAlerta("Cadastro concluído",
+        try {
+            App.caco.criarUsuario(login, senha, saldoInicial);
+            mostrarAlerta("Cadastro concluído",
                       String.format("Usuário %s criado com sucesso!", login));
+            // Redireciona para a tela de login
+             onVoltar();
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarErro("Erro no cadastro do usuário.");
 
-        // Redireciona para a tela de login
-        onVoltar();
+        }
+
+       
     }
 
     /* ---------- Métodos auxiliares ---------- */
