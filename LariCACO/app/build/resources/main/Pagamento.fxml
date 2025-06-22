@@ -23,7 +23,7 @@
             
             <!-- Quadrado de pagamento -->
             <StackPane fx:id="quadradoPagar" onMouseClicked="#onPagar">
-                <Rectangle arcHeight="10" arcWidth="10" height="200" style="-fx-fill: #90ee90; -fx-stroke: #2e7d32; -fx-stroke-width: 2;" width="200" />
+                <Rectangle arcHeight="10" arcWidth="10" fill="#626f47" height="200" style="-fx-fill: DDEB9D; -fx-stroke: A0C878; -fx-stroke-width: 2;" width="200" />
                 <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="PAGAR" />
             </StackPane>
 
