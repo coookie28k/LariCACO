@@ -34,9 +34,6 @@ public class PagamentoController {
 
         App.caco.realizarVenda(App.sistema.getLogado());
 
-        // FALTA IMPLEMENTAR public void realizarVenda(Usuario cliente, Vendedor
-        // vendedor)
-
         mostrarAlerta("Pagamento realizado com sucesso!");
 
         try {

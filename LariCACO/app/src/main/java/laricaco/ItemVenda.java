@@ -26,6 +26,9 @@ public class ItemVenda {
     }
 
     public double getTotal() {
+        Promocao promo = this.produto.getPromocao();
+        if (promo != null && this.quantidade == promo.getUnidades())
+            return promo.getPreco();
         return total;
     }
 

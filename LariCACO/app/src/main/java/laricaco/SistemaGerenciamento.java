@@ -111,13 +111,7 @@ public class SistemaGerenciamento {
         c.setStatus(true);
         for (ItemVenda i : c.getItens()) {
             Vendedor vendedor = i.getProduto().getVendedor();
-            double preco;
-            Promocao promocao = i.getProduto().getPromocao();
-
-            if (promocao != null && i.getQuantidade() == promocao.getUnidades())
-                preco = promocao.getPreco();
-            else
-                preco = i.getTotal();
+            double preco = i.getTotal();
 
             cliente.retirarSaldo(preco);
 
