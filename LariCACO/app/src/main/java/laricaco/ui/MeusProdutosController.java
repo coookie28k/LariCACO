@@ -10,6 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -116,6 +117,8 @@ public class MeusProdutosController {
         TextField estoqueField = new TextField(String.valueOf(p.getEstoque()));
 
         ListView<Tag> tagList = new ListView<>();
+        //alytura da lista de tags
+        tagList.setPrefHeight(80);
         tagList.getItems().addAll(p.getTag());
 
         TextField novaTagField = new TextField();
@@ -130,6 +133,29 @@ public class MeusProdutosController {
             }
         });
 
+        // ---------- Promoção ----------
+        CheckBox promocaoCheck = new CheckBox("Ativar promoção");
+        TextField promoUnidadesField = new TextField();
+        promoUnidadesField.setPromptText("Unidades");
+        TextField promoPrecoField = new TextField();
+        promoPrecoField.setPromptText("Preço promocional (R$)");
+
+        // Se já tiver promoção, preenche os campos e marca o checkbox
+        if (p.getPromocao() != null) {
+            promocaoCheck.setSelected(true);
+            promoUnidadesField.setText(String.valueOf(p.getPromocao().getUnidades()));
+            promoPrecoField.setText(String.valueOf(p.getPromocao().getPreco()));
+        } else {
+            promoUnidadesField.setDisable(true);
+            promoPrecoField.setDisable(true);
+        }
+
+        // Ativa/desativa os campos de promo conforme o checkbox
+        promocaoCheck.selectedProperty().addListener((obs, oldV, newV) -> {
+            promoUnidadesField.setDisable(!newV);
+            promoPrecoField.setDisable(!newV);
+        });
+
         // ---------- Layout ----------
         GridPane grid = new GridPane();
         grid.setVgap(8);
@@ -142,6 +168,11 @@ public class MeusProdutosController {
         grid.add(new Label("Tags:"), 0, row); grid.add(tagList, 1, row++);
         grid.add(novaTagField, 1, row);
         grid.add(addTagBtn, 2, row);
+        row++;
+        grid.add(promocaoCheck, 0, row, 2, 1);
+        row++;
+        grid.add(new Label("Unidades:"), 0, row); grid.add(promoUnidadesField, 1, row++);
+        grid.add(new Label("Preço promocional (R$):"), 0, row); grid.add(promoPrecoField, 1, row++);
 
         dialog.getDialogPane().setContent(grid);
 
@@ -174,6 +205,24 @@ public class MeusProdutosController {
 
                     p.getTag().clear();
                     tagList.getItems().forEach(p::adicionarTag);
+
+                    if (promocaoCheck.isSelected()) {
+                        try {
+                            int unidadesPromo = Integer.parseInt(promoUnidadesField.getText().trim());
+                            double precoPromo = Double.parseDouble(promoPrecoField.getText().replace(",", "."));
+
+                            if (unidadesPromo <= 0 || precoPromo < 0) {
+                                throw new IllegalArgumentException();
+                            }
+
+                            App.caco.adicionarPromocao(p, unidadesPromo, precoPromo);
+                        } catch (IllegalArgumentException e) {
+                            mostrarAlerta("Campos de promoção inválidos.");
+                            return; // interrompe a confirmação para o usuário corrigir
+                        }
+                    } else {
+                        App.caco.removerPromocao(p);
+                    }
 
                     exibirProdutos(vendedorLogado.getMeusProdutos());
                     
