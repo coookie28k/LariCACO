@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Produto {
+    private final int id;
     private String nome;
     private double preco;
     private String descricao;
@@ -13,7 +14,8 @@ public class Produto {
     private List<Tag> tagProduto;
     private Promocao promocao;
 
-    public Produto(String nome, double preco, String descricao, int estoque) {
+    public Produto(int id, String nome, double preco, String descricao, int estoque) {
+        this.id = id;
         this.nome = nome;
         this.preco = preco;
         this.descricao = descricao;
@@ -22,6 +24,10 @@ public class Produto {
         this.vendedor = null;
         this.tagProduto = new ArrayList<>();
         this.promocao = null;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public List<Tag> getTag() {

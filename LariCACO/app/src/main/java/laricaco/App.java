@@ -54,7 +54,7 @@ public class App extends Application {
         List<Produto> filtroProd = caco.filtrarPorTipo(Salgado.class);
         System.out.println("Filtro de salgados");
         for (Produto prod : filtroProd)
-            System.out.println(prod.getNome() + " (" + prod.getEstoque() + ")");
+            System.out.println(prod.getId() + " - " + prod.getNome() + " (" + prod.getEstoque() + ")");
 
         System.out.println();
 
@@ -67,7 +67,7 @@ public class App extends Application {
         List<Produto> filtroTag = caco.filtrarPorTag("Sem lactose");
         System.out.println("Filtro sem lactose");
         for (Produto prod : filtroTag)
-            System.out.println(prod.getNome() + " (" + prod.getEstoque() + ")");
+            System.out.println(prod.getId() + " - " + prod.getNome() + " (" + prod.getEstoque() + ")");
 
         List<Usuario> lista = caco.getUsuarios(); // ou App.caco.usuarios(), conforme o seu código
 
