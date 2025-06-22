@@ -36,6 +36,9 @@ public class App extends Application {
         Doce brigadeiro = caco.cadastrarDoce("brigadeiro", 5, "Brigadeiro!", 10, vendedor);
         brigadeiro.adicionarTag("Sem lactose");
         Salgado coxinha = caco.cadastrarSalgado("coxinha", 5, "Coxinha!", 10, vendedor);
+        caco.adicionarPromocao(coxinha, 2, 2);
+
+        lina.getCarrinho().adicionarItem(coxinha, 2);
         lina.getCarrinho().adicionarItem(brigadeiro, 2);
 
         System.out.println("Saldo de lina: " + lina.getSaldo());
