@@ -102,7 +102,7 @@ public class SistemaGerenciamento {
         return usuario;
     }
 
-    public void realizarVenda(Usuario cliente, Vendedor vendedor) throws Exception {
+    public void realizarVenda(Usuario cliente) throws Exception {
         Carrinho c = cliente.getCarrinho();
 
         if (cliente.getSaldo() < c.calcularTotal())
@@ -110,8 +110,10 @@ public class SistemaGerenciamento {
 
         c.setStatus(true);
         for (ItemVenda i : c.getItens()) {
+            Vendedor vendedor = i.getProduto().getVendedor();
             double preco;
             Promocao promocao = i.getProduto().getPromocao();
+
             if (promocao != null && i.getQuantidade() == promocao.getUnidades())
                 preco = promocao.getPreco();
             else

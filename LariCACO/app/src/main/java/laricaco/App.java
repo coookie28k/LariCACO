@@ -44,7 +44,7 @@ public class App extends Application {
         System.out.println("Saldo de lina: " + lina.getSaldo());
         System.out.println("Saldo de vendedor: " + vendedor.getSaldo());
         System.out.println("Saldo de caco: " + caco.getSaldo());
-        caco.realizarVenda(lina, vendedor);
+        caco.realizarVenda(lina);
 
         System.out.println("\nSaldo de lina: " + lina.getSaldo());
         System.out.println("Saldo de vendedor: " + vendedor.getSaldo());

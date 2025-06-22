@@ -11,8 +11,10 @@ import laricaco.Carrinho;
 
 public class PagamentoController {
 
-    @FXML private Label subtotalLabel;
-    @FXML private StackPane quadradoPagar;   // (não é usado diretamente, mas pode receber effects se quiser)
+    @FXML
+    private Label subtotalLabel;
+    @FXML
+    private StackPane quadradoPagar; // (não é usado diretamente, mas pode receber effects se quiser)
 
     /* ---------- Inicialização ---------- */
     @FXML
@@ -23,20 +25,20 @@ public class PagamentoController {
 
     /* ---------- Clique no quadrado ---------- */
     @FXML
-    private void onPagar() {
+    private void onPagar() throws Exception {
         Carrinho carrinho = App.sistema.getLogado().getCarrinho();
         if (carrinho.getItens().isEmpty()) {
             mostrarAlerta("Seu carrinho está vazio. Não há nada para pagar.");
             return;
         }
 
-        // Aqui você finalizaria o pagamento (ex.: processar cartão, limpar carrinho, etc.)
-        carrinho.limpar();  
+        App.caco.realizarVenda(App.sistema.getLogado());
 
-        //    FALTA IMPLEMENTAR public void realizarVenda(Usuario cliente, Vendedor vendedor) 
+        // FALTA IMPLEMENTAR public void realizarVenda(Usuario cliente, Vendedor
+        // vendedor)
 
         mostrarAlerta("Pagamento realizado com sucesso!");
-        
+
         try {
             App.sistema.mostrarTela("TelaInicial");
         } catch (IOException e) {
