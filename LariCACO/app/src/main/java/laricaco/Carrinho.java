@@ -46,12 +46,11 @@ public class Carrinho {
         while (it.hasNext()) {
             ItemVenda i = it.next();
             if (i.getProduto() == prod) {
-                it.remove();  
-                break;        
+                it.remove();
+                break;
             }
         }
     }
-
 
     public double calcularTotal() {
         double total = 0;
@@ -65,8 +64,8 @@ public class Carrinho {
      * Remove todos os itens do carrinho e redefine o status.
      */
     public void limpar() {
-        this.itens.clear();     // esvazia a lista
-        this.status = false;    // marca como “em aberto” novamente (ajuste se preferir)
+        this.itens.clear(); // esvazia a lista
+        this.status = false; // marca como “em aberto” novamente
     }
 
 }

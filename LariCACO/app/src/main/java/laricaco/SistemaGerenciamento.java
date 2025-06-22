@@ -108,6 +108,7 @@ public class SistemaGerenciamento {
         if (cliente.getSaldo() < c.calcularTotal())
             throw new SaldoInsuficienteException();
 
+        c.setStatus(true);
         for (ItemVenda i : c.getItens()) {
             double preco = i.getTotal();
 
@@ -121,7 +122,7 @@ public class SistemaGerenciamento {
             this.vendas.add(i);
             vendedor.adicionarItemVenda(i);
         }
-        c.setStatus(true);
+        c.limpar();
     }
 
     public Doce cadastrarDoce(String nome, double preco, String descricao, int estoque, Vendedor vendedor)
