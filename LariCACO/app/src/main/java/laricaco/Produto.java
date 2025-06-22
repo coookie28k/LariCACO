@@ -8,18 +8,20 @@ public class Produto {
     private double preco;
     private String descricao;
     private int estoque;
+
     private Vendedor vendedor;
     private List<Tag> tagProduto;
-
-    // falta: promocao, tags
+    private Promocao promocao;
 
     public Produto(String nome, double preco, String descricao, int estoque) {
         this.nome = nome;
         this.preco = preco;
         this.descricao = descricao;
         this.estoque = estoque;
+
         this.vendedor = null;
         this.tagProduto = new ArrayList<>();
+        this.promocao = null;
     }
 
     public List<Tag> getTag() {
@@ -98,5 +100,13 @@ public class Produto {
 
     public void adicionarEstoque(int quantidade) {
         this.estoque += quantidade;
+    }
+
+    public Promocao getPromocao() {
+        return promocao;
+    }
+
+    public void setPromocao(Promocao promocao) {
+        this.promocao = promocao;
     }
 }

@@ -167,15 +167,15 @@ public class SistemaGerenciamento {
         return a;
     }
 
-    public void removerProduto(int id) throws Exception {
-        for (Produto p : produtos) {
-            if (p.getId() == id) {
-                produtos.remove(p);
-                return;
-            }
-        }
-        throw new ProdutoNaoEncontradoException();
-    }
+    // public void removerProduto(int id) throws Exception {
+    // for (Produto p : produtos) {
+    // if (p.getId() == id) {
+    // produtos.remove(p);
+    // return;
+    // }
+    // }
+    // throw new ProdutoNaoEncontradoException();
+    // }
 
     public void removerProduto(String nome) throws Exception {
         for (Produto p : produtos) {
@@ -224,11 +224,15 @@ public class SistemaGerenciamento {
         return filtro.meetFilter(this.vendas);
     }
 
+    public void adicionarPromocao(Produto p, int unidades, double preco) {
+        p.setPromocao(new Promocao(unidades, preco));
+    }
+
     // metodo para teste
     public void imprimirProdutos() {
         System.out.println("Produtos do sistema:");
         for (Produto p : this.produtos) {
-            System.out.println(p.getId() + " - " + p.getNome() + " (" + p.getEstoque() + ")");
+            System.out.println(p.getNome() + " (" + p.getEstoque() + ")");
         }
         System.out.println();
     }
