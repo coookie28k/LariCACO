@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.Pos?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="laricaco.ui.TelaInicialController">
+
+    <!-- Cabeçalho com o nome da aplicação -->
+    <top>
+        <Label text="🎫 Laricaco"
+               style="-fx-font-size: 24px; -fx-padding: 10px;"
+               BorderPane.alignment="CENTER"/>
+    </top>
+
+    <!-- Conteúdo principal -->
+    <center>
+        <VBox spacing="15" alignment="CENTER" style="-fx-padding: 20px;">
+            <Label text="Bem‑vindo! Entre com seus dados:"
+                   style="-fx-font-size: 16px;"/>
+
+            <!-- Campo de login -->
+            <HBox spacing="10" alignment="CENTER">
+                <Label text="Login:"/>
+                <TextField fx:id="loginField" promptText="Digite seu login"/>
+            </HBox>
+
+            <!-- Campo de senha -->
+            <HBox spacing="10" alignment="CENTER">
+                <Label text="Senha:"/>
+                <PasswordField fx:id="senhaField" promptText="Digite sua senha"/>
+            </HBox>
+
+            <!-- Mensagem de feedback (erros, etc.) -->
+            <Label fx:id="mensagemLabel" text="" style="-fx-text-fill: red;"/>
+        </VBox>
+    </center>
+
+    <!-- Área de botões -->
+    <bottom>
+        <HBox spacing="15" alignment="CENTER" style="-fx-padding: 15px;">
+            <Button fx:id="continuarButton" text="Continuar" onAction="#onContinuar"/>
+            <Button fx:id="cadastrarButton" text="Cadastrar" onAction="#onCadastrar"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>
