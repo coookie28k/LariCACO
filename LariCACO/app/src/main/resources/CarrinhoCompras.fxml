@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="laricaco.ui.CarrinhoController">
+<BorderPane style="-fx-background-color: #FFFDF6;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="laricaco.ui.CarrinhoController">
 
     <!-- Topo com botão Voltar -->
     <top>
         <HBox spacing="10" style="-fx-padding: 10;">
-            <Button text="← Voltar" onAction="#onVoltar"/>
+            <Button onAction="#onVoltar" style="-fx-background-color: DDEB9D; -fx-border-color: A4B465;" text="← Voltar" textFill="#626f47" />
         </HBox>
     </top>
 
@@ -19,20 +24,23 @@
             <!-- Cabeçalho dos itens -->
             <GridPane hgap="10" vgap="5">
                 <columnConstraints>
-                    <ColumnConstraints percentWidth="40"/>
-                    <ColumnConstraints percentWidth="20"/>
-                    <ColumnConstraints percentWidth="20"/>
-                    <ColumnConstraints percentWidth="20"/>
+                    <ColumnConstraints percentWidth="40" />
+                    <ColumnConstraints percentWidth="20" />
+                    <ColumnConstraints percentWidth="20" />
+                    <ColumnConstraints percentWidth="20" />
                 </columnConstraints>
 
-                <Label text="Nome" GridPane.columnIndex="0"/>
-                <Label text="Quantidade" GridPane.columnIndex="1"/>
-                <Label text="Preço" GridPane.columnIndex="2"/>
-                <Label text="Ação" GridPane.columnIndex="3"/>
+                <Label text="Nome" textFill="#2d4f2b" GridPane.columnIndex="0" />
+                <Label text="Quantidade" textFill="#2d4f2b" GridPane.columnIndex="1" />
+                <Label text="Preço" textFill="#2d4f2b" GridPane.columnIndex="2" />
+                <Label text="Ação" textFill="#2d4f2b" GridPane.columnIndex="3" />
+            <rowConstraints>
+               <RowConstraints />
+            </rowConstraints>
             </GridPane>
 
             <!-- Lista de itens -->
-            <VBox fx:id="itensBox" spacing="5"/>
+            <VBox fx:id="itensBox" spacing="5" />
         </VBox>
     </center>
 
@@ -40,14 +48,14 @@
     <bottom>
         <VBox spacing="5" style="-fx-padding: 10;">
             <!-- Linha do subtotal -->
-            <HBox spacing="10" alignment="CENTER_RIGHT">
-                <Label text="Subtotal:"/>
-                <Label fx:id="subtotalLabel"/>
+            <HBox alignment="CENTER_RIGHT" spacing="10">
+                <Label text="Subtotal:" textFill="#2d4f2b" />
+                <Label fx:id="subtotalLabel" />
             </HBox>
 
             <!-- Linha do botão Continuar Compra -->
             <HBox alignment="CENTER">
-                <Button text="Continuar Compra" onAction="#onContinuarCompra"/>
+                <Button onAction="#onContinuarCompra" style="-fx-background-color: DDEB9D; -fx-border-color: A4B465;" text="Continuar Compra" textFill="#626f47" />
             </HBox>
         </VBox>
     </bottom>

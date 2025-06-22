@@ -2,51 +2,50 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.geometry.Pos?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="laricaco.ui.TelaInicialController">
+<BorderPane style="-fx-background-color: #FFFDF6;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="laricaco.ui.TelaInicialController">
 
     <!-- Cabeçalho com o nome da aplicação -->
     <top>
-        <Label text="🎫 Laricaco"
-               style="-fx-font-size: 24px; -fx-padding: 10px;"
-               BorderPane.alignment="CENTER"/>
+        <Label style="-fx-font-size: 24px; -fx-padding: 10px;" text="🎫 Laricaco" textFill="#626f47" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
     </top>
 
     <!-- Conteúdo principal -->
     <center>
-        <VBox spacing="15" alignment="CENTER" style="-fx-padding: 20px;">
-            <Label text="Bem‑vindo! Entre com seus dados:"
-                   style="-fx-font-size: 16px;"/>
+        <VBox alignment="CENTER" spacing="15" style="-fx-padding: 20px;">
+            <Label style="-fx-font-size: 16px;" text="Bem‑vindo! Entre com seus dados:" textFill="#2d4f2b" />
 
             <!-- Campo de login -->
-            <HBox spacing="10" alignment="CENTER">
-                <Label text="Login:"/>
-                <TextField fx:id="loginField" promptText="Digite seu login"/>
+            <HBox alignment="CENTER" spacing="10">
+                <Label text="Login:" textFill="#2d4f2b" />
+                <TextField fx:id="loginField" promptText="Digite seu login" />
             </HBox>
 
             <!-- Campo de senha -->
-            <HBox spacing="10" alignment="CENTER">
-                <Label text="Senha:"/>
-                <PasswordField fx:id="senhaField" promptText="Digite sua senha"/>
+            <HBox alignment="CENTER" spacing="10">
+                <Label text="Senha:" textFill="#2d4f2b" />
+                <PasswordField fx:id="senhaField" promptText="Digite sua senha" />
             </HBox>
 
             <!-- Mensagem de feedback (erros, etc.) -->
-            <Label fx:id="mensagemLabel" text="" style="-fx-text-fill: red;"/>
+            <Label fx:id="mensagemLabel" style="-fx-text-fill: red;" text="" />
         </VBox>
     </center>
 
     <!-- Área de botões -->
     <bottom>
-        <HBox spacing="15" alignment="CENTER" style="-fx-padding: 15px;">
-            <Button fx:id="continuarButton" text="Continuar" onAction="#onContinuar"/>
-            <Button fx:id="cadastrarButton" text="Cadastrar" onAction="#onCadastrar"/>
+        <HBox alignment="CENTER" spacing="15" style="-fx-padding: 15px;">
+            <Button fx:id="continuarButton" onAction="#onContinuar" style="-fx-background-color: DDEB9D; -fx-border-color: A4B465;" text="Continuar" textFill="#626f47" />
+            <Button fx:id="cadastrarButton" onAction="#onCadastrar" style="-fx-background-color: DDEB9D; -fx-border-color: A4B465;" text="Cadastrar" textFill="#626f47" />
         </HBox>
     </bottom>
 

@@ -1,29 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Pos?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="laricaco.ui.VenderController">
+<BorderPane style="-fx-background-color: #FFFDF6;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="laricaco.ui.VenderController">
 
     <!-- Topo – botão Voltar -->
     <top>
         <HBox alignment="TOP_LEFT" style="-fx-padding: 12;">
-            <Button text="← Voltar" onAction="#onVoltar"/>
+            <Button onAction="#onVoltar" style="-fx-background-color: DDEB9D; -fx-border-color: A4B465;" text="← Voltar" textFill="#626f47" />
         </HBox>
     </top>
 
     <!-- Centro – dois botões -->
     <center>
         <VBox alignment="CENTER" spacing="25">
-            <Button text="Meus Produtos"  prefWidth="180" prefHeight="45"
-                    onAction="#onMeusProdutos"/>
-            <Button text="Minhas Vendas"  prefWidth="180" prefHeight="45"
-                    onAction="#onMinhasVendas"/>
+            <Button onAction="#onMeusProdutos" prefHeight="45" prefWidth="180" style="-fx-background-color: DDEB9D; -fx-border-color: A4B465;" text="Meus Produtos" textFill="#626f47" />
+            <Button onAction="#onMinhasVendas" prefHeight="45" prefWidth="180" style="-fx-background-color: DDEB9D; -fx-border-color: A4B465;" text="Minhas Vendas" textFill="#626f47" />
         </VBox>
     </center>
 
