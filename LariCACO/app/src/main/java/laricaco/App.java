@@ -5,7 +5,6 @@
 package laricaco;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import javafx.application.Application;
@@ -18,7 +17,7 @@ public class App extends Application {
      * 
      * @param args
      */
-     public static List<Usuario> usuarios;
+     public static SistemaGerenciamento caco;;
      public static SistemaUI sistema;
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -28,11 +27,9 @@ public class App extends Application {
 
     public static void main(String[] args) throws Exception {
 
-        usuarios = new ArrayList<>();
-        SistemaGerenciamento caco = new SistemaGerenciamento(0.1, 0, "caco@mail.com", "senhacaco");
+        caco = new SistemaGerenciamento(0.1, 0, "caco@mail.com", "senhacaco");
         Usuario lina = caco.criarUsuario("lina@mail.com", "senha123", 200);
         Usuario vend = caco.criarUsuario("vend@mail.com", "senha456", 100);
-        usuarios.addAll(List.of(lina, vend));
         Vendedor vendedor = caco.virarVendedor(vend, "senha456");
 
         Doce brigadeiro = caco.cadastrarDoce("brigadeiro", 5, "Brigadeiro!", 10, vendedor);

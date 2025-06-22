@@ -17,7 +17,7 @@ public class SistemaGerenciamento {
     private double saldo;
     private List<Produto> produtos;
     private List<ItemVenda> vendas;
-    private List<Usuario> usuarios;
+    private static List<Usuario> usuarios;
 
     private int contagemId = 1;
     private String login;
@@ -31,7 +31,7 @@ public class SistemaGerenciamento {
 
         this.produtos = new ArrayList<>();
         this.vendas = new ArrayList<>();
-        this.usuarios = new ArrayList<>();
+        SistemaGerenciamento.usuarios = new ArrayList<>();
     }
 
     public double getTaxa() {

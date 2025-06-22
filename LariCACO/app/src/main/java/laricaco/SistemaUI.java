@@ -16,6 +16,13 @@ public class SistemaUI {
 
     /** Cliente atualmente logado no sistema. */
     private Usuario logado;
+
+    /** Largura padrão da janela */
+    private static final double LARGURA_PADRAO = 800;
+
+    /** Altura padrão da janela */
+    private static final double ALTURA_PADRAO = 600;
+
     /**
      * Construtor que recebe o Stage principal da aplicação.
      * @param stage Stage principal
@@ -36,10 +43,12 @@ public class SistemaUI {
         Parent root = loader.load();
 
         if (scene == null) {
-            scene = new Scene(root);
+            scene = new Scene(root, LARGURA_PADRAO, ALTURA_PADRAO);
             stage.setScene(scene);
         } else {
             scene.setRoot(root);
+            stage.setWidth(LARGURA_PADRAO);
+            stage.setHeight(ALTURA_PADRAO);
         }
         stage.show();
     }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="laricaco.ui.ComprarController">
+
+    <!-- Barra superior: voltar  |  Saldo: R$___  [Carrinho] -->
+    <top>
+        <HBox alignment="CENTER_LEFT" style="-fx-padding: 10;">
+            <!-- Botão voltar -->
+            <Button fx:id="voltarButton" text="← Voltar" onAction="#onVoltar"/>
+
+            <!-- Espaço expansível para empurrar saldo p/ direita -->
+            <Pane HBox.hgrow="ALWAYS"/>
+
+            <!-- Saldo -->
+            <Label text="Saldo: "/>
+            <Label fx:id="saldoLabel" style="-fx-font-weight: bold;"/>
+
+            <!-- Botão carrinho -->
+            <Button fx:id="carrinhoButton" text="Carrinho" onAction="#onCarrinho" style="-fx-padding: 0 12 0 12;"/>
+        </HBox>
+    </top>
+
+    <!-- Conteúdo central -->
+    <center>
+    <VBox alignment="TOP_CENTER" spacing="12" style="-fx-padding: 20">
+
+        <!-- 1-a linha – qual filtro? -->
+        <HBox alignment="CENTER" spacing="8">
+            <Label text="Filtrar por:"/>
+            <!-- FILTRO-TIPO:  Todos | Tipo | Tag -->
+            <ComboBox fx:id="filtroTipoCombo" prefWidth="160"/>
+        </HBox>
+
+        <!-- 1-b linha – valor do filtro escolhido -->
+        <HBox alignment="CENTER" spacing="8">
+            <Label text="Valor:"/>
+            <!-- FILTRO-VALOR:  Bebida / Comida / 'promo' / 'vegano' … -->
+            <ComboBox fx:id="filtroValorCombo" prefWidth="220"/>
+        </HBox>
+
+        <!-- Grid de produtos -->
+        <FlowPane fx:id="produtosPane" hgap="15" vgap="15" prefWrapLength="550" alignment="TOP_CENTER"/>
+    </VBox>
+</center>
+
+</BorderPane>

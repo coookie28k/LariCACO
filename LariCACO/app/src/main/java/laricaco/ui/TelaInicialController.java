@@ -34,7 +34,7 @@ public class TelaInicialController {
             Usuario usuarioEncontrado = null;
             // Lógica de verificação do login
             //Confere se login esta presente na lista de usuarios da classe app, procurando na lista App.usuarios
-            for (Usuario usuario : App.usuarios) {
+            for (Usuario usuario : App.caco.getUsuarios()) {
                 if (usuario.getLogin().equals(login) && usuario.verificarSenha(senha)) {
                     loginValido = true;
                     usuarioEncontrado = usuario;

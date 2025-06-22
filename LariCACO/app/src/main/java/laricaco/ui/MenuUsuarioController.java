@@ -23,9 +23,8 @@ public class MenuUsuarioController {
 
     @FXML
     private void onComprar() {
-        mostrarAlerta("Comprar", "Funcionalidade Comprar ainda não implementada.");
         try {
-            App.sistema.mostrarTela("TelaComprar");
+            App.sistema.mostrarTela("Comprar");
         } catch (IOException e) {
             e.printStackTrace();
             mostrarErro("Erro ao abrir tela de comprar");

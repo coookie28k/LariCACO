@@ -51,7 +51,7 @@ public class CadastroController {
         }
 
         // Verifica se login já existe
-        Optional<Usuario> existente = App.usuarios.stream()
+        Optional<Usuario> existente = App.caco.getUsuarios().stream()
                 .filter(u -> u.getLogin().equalsIgnoreCase(login))
                 .findFirst();
 
@@ -71,7 +71,7 @@ public class CadastroController {
 
         // Cria usuário e adiciona à lista
         Usuario novo = new Usuario(login, senha, saldoInicial);
-        App.usuarios.add(novo);
+        App.caco.getUsuarios().add(novo);
 
         mostrarAlerta("Cadastro concluído",
                       String.format("Usuário %s criado com sucesso!", login));
