@@ -15,7 +15,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -23,7 +22,6 @@ import javafx.scene.text.Text;
 import laricaco.App;
 import laricaco.Produto;
 import laricaco.Tag;
-import laricaco.Usuario;
 import laricaco.Vendedor;
 
 /**
@@ -39,7 +37,7 @@ public class MeusProdutosController {
     @FXML private FlowPane produtosPane;
 
     /* ------------ Estado ------------ */
-    private Usuario usuarioLogado;
+    private Vendedor vendedorLogado;
 
     /* ------------ Inicialização ------------ */
     @FXML
@@ -48,13 +46,13 @@ public class MeusProdutosController {
             mostrarAlerta("Erro: usuário atual não é um vendedor.");
             return;
         }
-
+        this.vendedorLogado = vendedor;
         exibirProdutos(vendedor.getMeusProdutos());
     }
 
-    /**
-     * Solicita a senha ao usuário e tenta convertê‑lo em Vendedor.
-     */
+    /*
+     Solicita a senha ao usuário e tenta convertê‑lo em Vendedor.
+     
     private void tentarVirarVendedor() {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Tornar‑se Vendedor");
@@ -70,7 +68,7 @@ public class MeusProdutosController {
                 mostrarAlerta("Senha incorreta. Não foi possível tornar‑se vendedor.");
             }
         });
-    }
+    } */
 
     /* ------------ Exibição ------------ */
     private void exibirProdutos(List<Produto> lista) {
@@ -177,9 +175,8 @@ public class MeusProdutosController {
                     p.getTag().clear();
                     tagList.getItems().forEach(p::adicionarTag);
 
-                    if (usuarioLogado instanceof Vendedor v) {
-                        exibirProdutos(v.getMeusProdutos());
-                    }
+                    exibirProdutos(vendedorLogado.getMeusProdutos());
+                    
 
                 } catch (IllegalArgumentException ex) {
                     mostrarAlerta("Campos inválidos. Verifique nome, preço e estoque.");
@@ -187,13 +184,10 @@ public class MeusProdutosController {
 
             } else if (bt == removerBtnType) {
                 //falta ainda ter um pop de confirmacao falando pra retirar todos os produtos do estoque para remover o produto
-                if (usuarioLogado instanceof Vendedor v) {
-                    v.removerProduto(p);
-                    exibirProdutos(v.getMeusProdutos());
-                    mostrarAlerta("Produto removido com sucesso.");
-                } else {
-                    mostrarAlerta("Apenas vendedores podem remover produtos.");
-                }
+                vendedorLogado.removerProduto(p);
+                exibirProdutos(vendedorLogado.getMeusProdutos());
+                mostrarAlerta("Produto removido com sucesso.");
+                
             }
         });
     }
@@ -203,29 +197,29 @@ public class MeusProdutosController {
     @FXML
     private void onVoltar() { trocarTela("Vender", "Não foi possível voltar."); }
 
-    @FXML
+        @FXML
     private void onAdicionarProduto() {
-        /* 
-        // 1) Só vendedores podem criar:
-        if (!(usuarioLogado instanceof Vendedor v)) {
-            mostrarAlerta("Apenas vendedores podem adicionar produtos.");
-            return;
-        }
 
-        // ---------- Diálogo
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Adicionar Produto");
         dialog.setHeaderText("Informe os dados do novo produto");
 
-        // -- campos
-        TextField nomeField    = new TextField();
-        TextField precoField   = new TextField();
-        TextArea  descArea     = new TextArea(); descArea.setPrefRowCount(3);
+        // Campos
+        TextField nomeField = new TextField();
+        TextField precoField = new TextField();
+        TextArea descArea = new TextArea(); 
+        descArea.setPrefRowCount(3);
         TextField estoqueField = new TextField();
 
-        // -- tags
-        ListView<Tag> tagList  = new ListView<>();
-        TextField novaTagField = new TextField(); novaTagField.setPromptText("Nova tag");
+        // Combo para tipo de produto
+        javafx.scene.control.ComboBox<String> tipoCombo = new javafx.scene.control.ComboBox<>();
+        tipoCombo.getItems().addAll("Doce", "Salgado", "Adesivo");
+        tipoCombo.getSelectionModel().selectFirst();
+
+        // Tags
+        ListView<Tag> tagList = new ListView<>();
+        TextField novaTagField = new TextField();
+        novaTagField.setPromptText("Nova tag");
         Button addTagBtn = new Button("Adicionar Tag");
         addTagBtn.setOnAction(e -> {
             String txt = novaTagField.getText().trim();
@@ -235,56 +229,63 @@ public class MeusProdutosController {
             }
         });
 
-        // -- layout
-        GridPane grid = new GridPane(); grid.setVgap(8); grid.setHgap(10);
+        // Layout
+        GridPane grid = new GridPane();
+        grid.setVgap(8);
+        grid.setHgap(10);
         int row = 0;
-        grid.add(new Label("Nome:"),       0, row); grid.add(nomeField,    1, row++);
-        grid.add(new Label("Preço (R$):"), 0, row); grid.add(precoField,   1, row++);
-        grid.add(new Label("Descrição:"),  0, row); grid.add(descArea,     1, row++);
-        grid.add(new Label("Estoque:"),    0, row); grid.add(estoqueField, 1, row++);
-        grid.add(new Label("Tags:"),       0, row); grid.add(tagList,      1, row++);
-        grid.add(novaTagField,             1, row); grid.add(addTagBtn,    2, row);
+        grid.add(new Label("Tipo:"), 0, row);          grid.add(tipoCombo, 1, row++);
+        grid.add(new Label("Nome:"), 0, row);          grid.add(nomeField, 1, row++);
+        grid.add(new Label("Preço (R$):"), 0, row);    grid.add(precoField, 1, row++);
+        grid.add(new Label("Descrição:"), 0, row);     grid.add(descArea, 1, row++);
+        grid.add(new Label("Estoque:"), 0, row);       grid.add(estoqueField, 1, row++);
+        grid.add(new Label("Tags:"), 0, row);          grid.add(tagList, 1, row++);
+        grid.add(novaTagField, 1, row);                 grid.add(addTagBtn, 2, row);
 
         dialog.getDialogPane().setContent(grid);
 
-        // -- botões
+        // Botões
         ButtonType confirmarBtnType = new ButtonType("Confirmar", ButtonBar.ButtonData.OK_DONE);
-        ButtonType cancelarBtnType  = new ButtonType("Cancelar",  ButtonBar.ButtonData.CANCEL_CLOSE);
+        ButtonType cancelarBtnType = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
         dialog.getDialogPane().getButtonTypes().setAll(confirmarBtnType, cancelarBtnType);
 
-        // ---------- ação "Confirmar" ---------- 
         dialog.showAndWait().ifPresent(bt -> {
             if (bt == confirmarBtnType) {
                 try {
-                    String nome   = nomeField.getText().trim();
-                    double preco  = Double.parseDouble(precoField.getText().replace(",", "."));
-                    int estoque   = Integer.parseInt(estoqueField.getText().trim());
+                    String nome = nomeField.getText().trim();
+                    double preco = Double.parseDouble(precoField.getText().replace(",", "."));
+                    int estoque = Integer.parseInt(estoqueField.getText().trim());
+                    String descricao = descArea.getText();
+                    String tipo = tipoCombo.getValue();
 
-                    if (nome.isEmpty() || preco < 0 || estoque < 0) {
+                    if (nome.isEmpty() || preco < 0 || estoque <= 0) {
                         throw new IllegalArgumentException();
                     }
 
-                    // 2) Cria produto com id válido
-                    int novoId = gerarNovoId();   //↩ troque por sua estratégia real
-                    Produto novo = new Produto(3, nome, preco, descArea.getText(), estoque);
+                    Produto novo = null;
+                    // Usa métodos de cadastro conforme tipo
+                    switch (tipo) {
+                        case "Doce" -> novo = App.caco.cadastrarDoce(nome, preco, descricao, estoque, vendedorLogado);
+                        case "Salgado" -> novo = App.caco.cadastrarSalgado(nome, preco, descricao, estoque, vendedorLogado);
+                        case "Adesivo" -> novo = App.caco.cadastrarAdesivo(nome, preco, descricao, estoque, vendedorLogado);
+                        default -> throw new IllegalArgumentException("Tipo inválido");
+                    }
 
-                    // 3) Seta vendedor e tags
-                    novo.setVendedor(v);
+                    // Adiciona tags ao produto
                     tagList.getItems().forEach(novo::adicionarTag);
 
-                    // 4) Persiste e atualiza UI
-                    v.adicionarProduto(novo);
-                    exibirProdutos(v.getMeusProdutos());
-
+                    exibirProdutos(vendedorLogado.getMeusProdutos());
                     mostrarAlerta("Produto adicionado com sucesso.");
 
-                } catch (NumberFormatException | IllegalArgumentException ex) {
+                } catch ( IllegalArgumentException ex) {
                     mostrarAlerta("Campos inválidos. Verifique nome, preço e estoque.");
+                } catch (Exception ex) {
+                    mostrarAlerta("Erro ao cadastrar produto: " + ex.getMessage());
                 }
             }
         });
-        */
     }
+
 
     /* ------------ Utilidades ------------ */
     private void trocarTela(String fxml, String erroMsg) {
