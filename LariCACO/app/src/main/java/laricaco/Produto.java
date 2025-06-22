@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Produto {
-    private int id;
     private String nome;
     private double preco;
     private String descricao;
@@ -14,8 +13,7 @@ public class Produto {
 
     // falta: promocao, tags
 
-    Produto(int id, String nome, double preco, String descricao, int estoque) {
-        this.id = id;
+    public Produto(String nome, double preco, String descricao, int estoque) {
         this.nome = nome;
         this.preco = preco;
         this.descricao = descricao;
@@ -60,14 +58,6 @@ public class Produto {
 
     public void setPreco(double preco) {
         this.preco = preco;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getNome() {
