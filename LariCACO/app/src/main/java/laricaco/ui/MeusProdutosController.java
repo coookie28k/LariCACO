@@ -205,14 +205,14 @@ public class MeusProdutosController {
 
     @FXML
     private void onAdicionarProduto() {
-
+        /* 
         // 1) Só vendedores podem criar:
         if (!(usuarioLogado instanceof Vendedor v)) {
             mostrarAlerta("Apenas vendedores podem adicionar produtos.");
             return;
         }
 
-        /* ---------- Diálogo ---------- */
+        // ---------- Diálogo
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Adicionar Produto");
         dialog.setHeaderText("Informe os dados do novo produto");
@@ -252,7 +252,7 @@ public class MeusProdutosController {
         ButtonType cancelarBtnType  = new ButtonType("Cancelar",  ButtonBar.ButtonData.CANCEL_CLOSE);
         dialog.getDialogPane().getButtonTypes().setAll(confirmarBtnType, cancelarBtnType);
 
-        /* ---------- ação "Confirmar" ---------- */
+        // ---------- ação "Confirmar" ---------- 
         dialog.showAndWait().ifPresent(bt -> {
             if (bt == confirmarBtnType) {
                 try {
@@ -283,6 +283,7 @@ public class MeusProdutosController {
                 }
             }
         });
+        */
     }
 
     /* ------------ Utilidades ------------ */
