@@ -233,6 +233,10 @@ public class SistemaGerenciamento {
         p.setPromocao(new Promocao(unidades, preco));
     }
 
+    public void removerPromocao(Produto p) {
+        p.setPromocao(null);
+    }
+
     // metodo para teste
     public void imprimirProdutos() {
         System.out.println("Produtos do sistema:");
