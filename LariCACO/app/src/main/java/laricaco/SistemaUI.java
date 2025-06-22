@@ -15,7 +15,7 @@ public class SistemaUI {
     private Scene scene;
 
     /** Cliente atualmente logado no sistema. */
-
+    private Usuario logado;
     /**
      * Construtor que recebe o Stage principal da aplicação.
      * @param stage Stage principal
@@ -51,5 +51,13 @@ public class SistemaUI {
      */
     public Stage getStage() {
         return stage;
+    }
+
+    public Usuario getLogado() {
+        return logado;
+    }
+
+    public void setLogado(Usuario logado) {
+        this.logado = logado;
     }
 }
