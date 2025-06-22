@@ -6,7 +6,7 @@ public class Usuario {
     private double saldo;
     private Carrinho carrinho;
 
-    Usuario(String login, String senha, double saldo) {
+    public Usuario(String login, String senha, double saldo) {
         this.login = login;
         this.senha = senha;
         this.saldo = saldo;
@@ -21,11 +21,8 @@ public class Usuario {
         this.login = login;
     }
 
-    public boolean verificarSenha(String senha) {
-        if (senha == this.senha)
-            return true;
-        else
-            return false;
+    public boolean verificarSenha(String senhaInput) {
+        return this.senha.equals(senhaInput);
     }
 
     public void setSenha(String senha) {

@@ -17,7 +17,7 @@ public class SistemaGerenciamento {
     private double saldo;
     private List<Produto> produtos;
     private List<ItemVenda> vendas;
-    private List<Usuario> usuarios;
+    private static List<Usuario> usuarios;
 
     private int contagemId = 1;
     private String login;
@@ -31,7 +31,7 @@ public class SistemaGerenciamento {
 
         this.produtos = new ArrayList<>();
         this.vendas = new ArrayList<>();
-        this.usuarios = new ArrayList<>();
+        SistemaGerenciamento.usuarios = new ArrayList<>();
     }
 
     public double getTaxa() {
@@ -71,7 +71,7 @@ public class SistemaGerenciamento {
     }
 
     public void setUsuarios(List<Usuario> usuarios) {
-        this.usuarios = usuarios;
+        SistemaGerenciamento.usuarios = usuarios;
     }
 
     public String getLogin() {
@@ -189,8 +189,8 @@ public class SistemaGerenciamento {
     public Vendedor virarVendedor(Usuario usuario, String senha) {
         if (usuario.verificarSenha(senha)) {
             Vendedor vendedor = new Vendedor(usuario.getLogin(), senha, usuario.getSaldo());
-            this.usuarios.remove(usuario);
-            this.usuarios.add(vendedor);
+            SistemaGerenciamento.usuarios.remove(usuario);
+            SistemaGerenciamento.usuarios.add(vendedor);
             return vendedor;
         }
         return null;

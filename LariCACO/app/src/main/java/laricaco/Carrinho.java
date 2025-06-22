@@ -2,6 +2,7 @@ package laricaco;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import laricaco.Exceptions.EstoqueInsuficienteException;
@@ -41,11 +42,16 @@ public class Carrinho {
     }
 
     public void removerItem(Produto prod) {
-        for (ItemVenda i : this.itens) {
-            if (i.getProduto() == prod)
-                this.itens.remove(i);
+        Iterator<ItemVenda> it = this.itens.iterator();
+        while (it.hasNext()) {
+            ItemVenda i = it.next();
+            if (i.getProduto() == prod) {
+                it.remove();  
+                break;        
+            }
         }
     }
+
 
     public double calcularTotal() {
         double total = 0;
@@ -54,4 +60,13 @@ public class Carrinho {
         }
         return total;
     }
+
+    /**
+     * Remove todos os itens do carrinho e redefine o status.
+     */
+    public void limpar() {
+        this.itens.clear();     // esvazia a lista
+        this.status = false;    // marca como “em aberto” novamente (ajuste se preferir)
+    }
+
 }

@@ -17,8 +17,9 @@ public class App extends Application {
      * 
      * @param args
      */
-    
-     public static SistemaUI sistema;
+    public static SistemaGerenciamento caco;
+    public static SistemaUI sistema;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         sistema = new SistemaUI(primaryStage);
@@ -27,8 +28,7 @@ public class App extends Application {
 
     public static void main(String[] args) throws Exception {
 
-        launch(args); 
-        SistemaGerenciamento caco = new SistemaGerenciamento(0.1, 0, "caco@mail.com", "senhacaco");
+        caco = new SistemaGerenciamento(0.1, 0, "caco@mail.com", "senhacaco");
         Usuario lina = caco.criarUsuario("lina@mail.com", "senha123", 200);
         Usuario vend = caco.criarUsuario("vend@mail.com", "senha456", 100);
         Vendedor vendedor = caco.virarVendedor(vend, "senha456");
@@ -68,5 +68,6 @@ public class App extends Application {
         System.out.println("Filtro sem lactose");
         for (Produto prod : filtroTag)
             System.out.println(prod.getId() + " - " + prod.getNome() + " (" + prod.getEstoque() + ")");
+        launch(args);
     }
 }

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" 
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="laricaco.ui.PagamentoController">
+
+    <!-- Mensagem no topo -->
+    <top>
+        <HBox alignment="CENTER" style="-fx-padding: 15;">
+            <Label text="Clique no quadrado para realizar o pagamento" 
+                   style="-fx-font-size: 16px;"/>
+        </HBox>
+    </top>
+
+    <!-- Centro: quadrado “clicável” + subtotal -->
+    <center>
+        <VBox alignment="CENTER" spacing="20">
+            
+            <!-- Quadrado de pagamento -->
+            <StackPane fx:id="quadradoPagar" onMouseClicked="#onPagar">
+                <Rectangle width="200" height="200" 
+                           arcWidth="10" arcHeight="10"
+                           style="-fx-fill: #90ee90; -fx-stroke: #2e7d32; -fx-stroke-width: 2;"/>
+                <Label text="PAGAR" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+            </StackPane>
+
+            <!-- Subtotal -->
+            <HBox alignment="CENTER" spacing="5">
+                <Label text="Subtotal:"/>
+                <Label fx:id="subtotalLabel" style="-fx-font-weight: bold;"/>
+            </HBox>
+        </VBox>
+    </center>
+
+    <!-- Rodapé: botão Cancelar -->
+    <bottom>
+        <HBox alignment="CENTER" style="-fx-padding: 15;">
+            <Button text="Cancelar" onAction="#onCancelar"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>
