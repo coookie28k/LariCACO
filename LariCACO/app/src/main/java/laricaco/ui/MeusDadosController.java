@@ -22,7 +22,11 @@ public class MeusDadosController {
 
     @FXML
     private void onVoltar() throws IOException {
-        App.sistema.mostrarTela("MenuUsuario");
+        try {
+            App.sistema.mostrarTela("MenuUsuario");
+        } catch (IOException e) {
+            mostrarErro("Erro ao voltar ao menu.");
+        }
     }
 
     @FXML
@@ -54,6 +58,15 @@ public class MeusDadosController {
                 mostrarAlerta("Valor inválido. Digite um número.");
             }
         });
+    }
+
+        /* ---------- Alerta de erro ---------- */
+    private void mostrarErro(String msg) {
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        a.setTitle("Erro");
+        a.setHeaderText(null);
+        a.setContentText(msg);
+        a.showAndWait();
     }
 
 

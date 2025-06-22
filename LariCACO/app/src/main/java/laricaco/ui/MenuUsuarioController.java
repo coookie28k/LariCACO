@@ -35,7 +35,7 @@ public class MenuUsuarioController {
     @FXML
     private void onVender() {
         try {
-            App.sistema.mostrarTela("TelaVender");
+            App.sistema.mostrarTela("Vender");
         } catch (IOException e) {
             e.printStackTrace();
             mostrarErro("Erro ao abrir tela de vender");
