@@ -31,16 +31,20 @@ public class TelaInicialController {
             mensagemLabel.setText("Por favor, preencha todos os campos.");
         } else {
             boolean loginValido = false;
+            Usuario usuarioEncontrado = null;
             // Lógica de verificação do login
             //Confere se login esta presente na lista de usuarios da classe app, procurando na lista App.usuarios
             for (Usuario usuario : App.usuarios) {
                 if (usuario.getLogin().equals(login) && usuario.verificarSenha(senha)) {
                     loginValido = true;
+                    usuarioEncontrado = usuario;
                     break;
                 }
             }
 
             if (loginValido) {
+                // Define o usuário logado no sistema para uso posterior
+                App.sistema.setLogado(usuarioEncontrado);
                 mensagemLabel.setText("");
                 mostrarAlerta("Sucesso", "Login realizado com sucesso!");
                 try {

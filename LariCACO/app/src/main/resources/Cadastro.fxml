@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="laricaco.ui.CadastroController">
+
+    <!-- Topo – botão Voltar à esquerda -->
+    <top>
+        <HBox alignment="TOP_LEFT" style="-fx-padding: 10;">
+            <Button fx:id="voltarButton" text="← Voltar" onAction="#onVoltar"/>
+        </HBox>
+    </top>
+
+    <!-- Centro – formulário de cadastro -->
+    <center>
+        <VBox alignment="CENTER" spacing="15" style="-fx-padding: 20;">
+            <Label text="Cadastre-se" style="-fx-font-size: 18px;"/>
+
+            <!-- Login -->
+            <HBox spacing="10" alignment="CENTER">
+                <Label text="Login:"/>
+                <TextField fx:id="loginField" promptText="Digite um login"/>
+            </HBox>
+
+            <!-- Senha -->
+            <HBox spacing="10" alignment="CENTER">
+                <Label text="Senha:"/>
+                <PasswordField fx:id="senhaField" promptText="Digite uma senha"/>
+            </HBox>
+
+            <!-- Saldo inicial -->
+            <HBox spacing="10" alignment="CENTER">
+                <Label text="Saldo inicial:"/>
+                <TextField fx:id="saldoField" promptText="0.00"/>
+            </HBox>
+
+            <!-- Mensagem de feedback -->
+            <Label fx:id="mensagemLabel" text="" style="-fx-text-fill: red;"/>
+        </VBox>
+    </center>
+
+    <!-- Botão Continuar -->
+    <bottom>
+        <HBox alignment="CENTER" style="-fx-padding: 15;">
+            <Button fx:id="continuarButton" text="Continuar" onAction="#onContinuar" prefWidth="140" prefHeight="40"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

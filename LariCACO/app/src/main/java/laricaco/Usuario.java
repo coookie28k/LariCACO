@@ -6,7 +6,7 @@ public class Usuario {
     private double saldo;
     private Carrinho carrinho;
 
-    Usuario(String login, String senha, double saldo) {
+    public Usuario(String login, String senha, double saldo) {
         this.login = login;
         this.senha = senha;
         this.saldo = saldo;
