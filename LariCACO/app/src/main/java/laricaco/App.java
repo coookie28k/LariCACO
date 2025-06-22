@@ -68,6 +68,13 @@ public class App extends Application {
         System.out.println("Filtro sem lactose");
         for (Produto prod : filtroTag)
             System.out.println(prod.getId() + " - " + prod.getNome() + " (" + prod.getEstoque() + ")");
+
+        List<Usuario> lista = caco.getUsuarios();      // ou App.caco.usuarios(), conforme o seu código
+
+        if (lista == null || lista.isEmpty()) {
+            System.out.println("Nenhum usuário cadastrado.");
+            return;
+        }
         launch(args);
     }
 }
