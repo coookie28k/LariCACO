@@ -130,7 +130,7 @@ public class SistemaGerenciamento {
     public Doce cadastrarDoce(String nome, double preco, String descricao, int estoque, Vendedor vendedor)
             throws Exception {
 
-        if (estoque <= 0)
+        if (estoque < 0)
             throw new QuantidadeInvalidaException();
 
         Doce d = new Doce(contagemId, nome, preco, descricao, estoque);
@@ -144,7 +144,7 @@ public class SistemaGerenciamento {
     public Salgado cadastrarSalgado(String nome, double preco, String descricao, int estoque, Vendedor vendedor)
             throws Exception {
 
-        if (estoque <= 0)
+        if (estoque < 0)
             throw new QuantidadeInvalidaException();
 
         Salgado s = new Salgado(contagemId, nome, preco, descricao, estoque);
@@ -159,7 +159,7 @@ public class SistemaGerenciamento {
             String tamanho)
             throws Exception {
 
-        if (estoque <= 0)
+        if (estoque < 0)
             throw new QuantidadeInvalidaException();
 
         Adesivo a = new Adesivo(contagemId, nome, preco, descricao, estoque, tamanho);
