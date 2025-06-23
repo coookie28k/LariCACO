@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import laricaco.App;
+import laricaco.Exceptions.LoginJaExistenteException;
 import laricaco.Usuario;
 
 /**
@@ -104,12 +105,13 @@ public class CadastroController {
                       String.format("Usuário %s criado com sucesso!", login));
             // Redireciona para a tela de login
              onVoltar();
+        } catch (LoginJaExistenteException e) {
+            mostrarErro(e.getMessage());
+
         } catch (Exception e) {
             e.printStackTrace();
             mostrarErro("Erro no cadastro do usuário.");
-
         }
-
        
     }
 

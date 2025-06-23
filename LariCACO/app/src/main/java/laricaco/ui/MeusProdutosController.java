@@ -23,6 +23,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import laricaco.App;
+import laricaco.Exceptions.ProdutoNaoEncontradoException;
 import laricaco.Produto;
 import laricaco.Tag;
 import laricaco.Vendedor;
@@ -303,10 +304,13 @@ public class MeusProdutosController {
                         exibirProdutos(vendedorLogado.getMeusProdutos());
                         try {
                             App.caco.removerProduto(p.getNome());
+                        } catch (ProdutoNaoEncontradoException e1) {
+                            mostrarAlerta(e1.getMessage());
                         } catch (Exception e1) {
                             e1.printStackTrace();
                             mostrarAlerta("Produto não foi removido da lista de produtos do sistema");
                         }
+
                         mostrarAlerta("Produto removido com sucesso.");
                     }
                     // Se cancelou, não faz nada
@@ -481,6 +485,19 @@ public class MeusProdutosController {
      */
     private void mostrarAlerta(String msg) {
         Alert a = new Alert(Alert.AlertType.INFORMATION);
+        a.setTitle("Informação");
+        a.setHeaderText(null);
+        a.setContentText(msg);
+        a.showAndWait();
+    }
+
+    /**
+     * Exibe uma caixa de diálogo de erro com a mensagem informada.
+     * 
+     * @param msg Mensagem de erro a ser exibida
+     */
+    private void mostrarErro(String msg) {
+        Alert a = new Alert(Alert.AlertType.ERROR);
         a.setTitle("Informação");
         a.setHeaderText(null);
         a.setContentText(msg);

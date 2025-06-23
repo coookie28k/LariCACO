@@ -270,10 +270,11 @@ public class ComprarController {
             App.sistema.getLogado().adicionarNoCarrinho(p, quantidade);
             mostrarAlerta("Carrinho", p.getNome() + " adicionado!");
         } catch (EstoqueInsuficienteException e) {
-            mostrarErro("Estoque insuficiente para " + p.getNome() + ".");
+            mostrarErro(e.getMessage());
         } catch (Exception e) {
-            mostrarErro("Erro ao adicionar ao carrinho.");
             e.printStackTrace();
+            mostrarErro("Erro ao adicionar ao carrinho.");
+            
         }
     }
 
