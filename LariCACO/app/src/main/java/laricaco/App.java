@@ -45,7 +45,7 @@
          */
         public static void main(String[] args) throws Exception {
 
-            caco = new SistemaGerenciamento(0.1, 0, "caco@mail.com", "senhacaco");
+            caco = SistemaGerenciamento.getInstance(0.1, 0, "caco@mail.com", "senhacaco");
             Usuario vend = caco.criarUsuario("vend@mail.com", "senha456", 100);
             Vendedor vendedor = caco.virarVendedor(vend, "senha456");
 

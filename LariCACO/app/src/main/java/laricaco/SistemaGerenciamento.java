@@ -42,6 +42,9 @@ public class SistemaGerenciamento {
     /** Senha do sistema administrativo. */
     private String senha;
 
+    /** Instância única do sistema */
+    private static SistemaGerenciamento instancia;
+
     /**
      * Construtor da classe SistemaGerenciamento.
      * 
@@ -50,7 +53,7 @@ public class SistemaGerenciamento {
      * @param login login administrativo
      * @param senha senha administrativa
      */
-    public SistemaGerenciamento(double taxa, double saldo, String login, String senha) {
+    private SistemaGerenciamento(double taxa, double saldo, String login, String senha) {
         this.taxa = taxa;
         this.saldo = saldo;
         this.login = login;
@@ -59,6 +62,23 @@ public class SistemaGerenciamento {
         this.produtos = new ArrayList<>();
         this.vendas = new ArrayList<>();
         SistemaGerenciamento.usuarios = new ArrayList<>();
+    }
+
+    /**
+     * Método para instanciar um sistema gerenciamento, Design Pattern Singleton
+     * recebe os mesmo parametros do construtor
+     * @param taxa  taxa de comissão
+     * @param saldo saldo inicial do sistema
+     * @param login login administrativo
+     * @param senha senha administrativa
+     * @return a instancia única do sistema
+     */
+
+    public static SistemaGerenciamento getInstance(double taxa, double saldo, String login, String senha) {
+        if (instancia == null) {
+            instancia = new SistemaGerenciamento(taxa, saldo, login, senha);
+        }
+        return instancia;
     }
 
     /**

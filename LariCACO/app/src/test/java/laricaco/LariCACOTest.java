@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
  * e filtrar produtos por tag e por tipo.
  */
 public class LariCACOTest {
-    SistemaGerenciamento caco = new SistemaGerenciamento(0.1, 0, "caco@mail.com", "senhacaco");
+    SistemaGerenciamento caco = SistemaGerenciamento.getInstance(0.1, 0, "caco@mail.com", "senhacaco");
     Usuario cliente;
     Usuario vend;
     Vendedor vendedor;
@@ -43,8 +43,8 @@ public class LariCACOTest {
      */
     @Test
     public void venderItens() throws Exception {
-        cliente = caco.criarUsuario("cliente@mail.com", "senha123", 200);
-        vend = caco.criarUsuario("vend@mail.com", "senha456", 100);
+        cliente = caco.criarUsuario("marcobbueno", "senha123", 200);
+        vend = caco.criarUsuario("vend2", "senha456", 100);
         vendedor = caco.virarVendedor(vend, "senha456");
 
         Doce brigadeiro = caco.cadastrarDoce("brigadeiro", 5, "Brigadeiro!", 10, vendedor);
@@ -68,8 +68,8 @@ public class LariCACOTest {
      */
     @Test
     public void precoNaPromocao() throws Exception {
-        cliente = caco.criarUsuario("cliente@mail.com", "senha123", 200);
-        vend = caco.criarUsuario("vend@mail.com", "senha456", 100);
+        cliente = caco.criarUsuario("cliente52", "senha123", 200);
+        vend = caco.criarUsuario("vend4", "senha456", 100);
         vendedor = caco.virarVendedor(vend, "senha456");
 
         Salgado coxinha = caco.cadastrarSalgado("coxinha", 5, "Coxinha!", 10, vendedor);
@@ -88,7 +88,7 @@ public class LariCACOTest {
      */
     @Test
     public void filtroPorTag() throws Exception {
-        vend = caco.criarUsuario("vend@mail.com", "senha456", 100);
+        vend = caco.criarUsuario("vend5", "senha456", 100);
         vendedor = caco.virarVendedor(vend, "senha456");
 
         Salgado coxinha = caco.cadastrarSalgado("coxinha", 5, "Coxinha!", 10, vendedor);
@@ -109,7 +109,7 @@ public class LariCACOTest {
      */
     @Test
     public void filtroPorTipo() throws Exception {
-        vend = caco.criarUsuario("vend@mail.com", "senha456", 100);
+        vend = caco.criarUsuario("vend@6", "senha456", 100);
         vendedor = caco.virarVendedor(vend, "senha456");
 
         Salgado coxinha = caco.cadastrarSalgado("coxinha", 5, "Coxinha!", 10, vendedor);
