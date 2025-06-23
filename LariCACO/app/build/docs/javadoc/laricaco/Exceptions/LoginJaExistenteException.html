@@ -99,6 +99,9 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">LoginJaExistenteException</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Exception.html" title="class or interface in java.lang" class="external-link">Exception</a></span></div>
+<div class="block">Exceção lançada quando se tenta registrar um novo usuário
+ com um login que já está em uso no sistema.
+ Essa verificação impede duplicidade de logins para garantir unicidade.</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
@@ -119,7 +122,10 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E()" class="member-name-link">LoginJaExistenteException</a>()</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Cria uma nova exceção com a mensagem padrão
+ "Este login já está em uso.".</div>
+</div>
 </div>
 </section>
 </li>
@@ -148,6 +154,8 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="&lt;init&gt;()">
 <h3>LoginJaExistenteException</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">LoginJaExistenteException</span>()</div>
+<div class="block">Cria uma nova exceção com a mensagem padrão
+ "Este login já está em uso.".</div>
 </section>
 </li>
 </ul>
