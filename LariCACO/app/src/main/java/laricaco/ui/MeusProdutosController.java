@@ -232,11 +232,43 @@ public class MeusProdutosController {
                 }
 
             } else if (bt == removerBtnType) {
-                //falta ainda ter um pop de confirmacao falando pra retirar todos os produtos do estoque para remover o produto
-                vendedorLogado.removerProduto(p);
-                exibirProdutos(vendedorLogado.getMeusProdutos());
-                mostrarAlerta("Produto removido com sucesso.");
-                
+                    // Se ainda restam unidades em estoque, avisa e bloqueia a remoção
+                if (p.getEstoque() > 0) {
+                    Alert alertaEstoque = new Alert(Alert.AlertType.INFORMATION);
+                    alertaEstoque.setTitle("Remover Produto");
+                    alertaEstoque.setHeaderText("Não é possível remover \"" + p.getNome() + "\".");
+                    alertaEstoque.setContentText(
+                        "Antes de excluir o produto, remova todas as " +
+                        p.getEstoque() + " unidades\n do estoque (defina estoque como 0).");
+                    alertaEstoque.showAndWait();
+                    return;   // cancela a ação de remoção
+                }
+
+                // Estoque já está zerado -- pede confirmação final ao usuário
+                Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+                confirm.setTitle("Remover Produto");
+                confirm.setHeaderText("Remover \"" + p.getNome() + "\"?");
+                confirm.setContentText("Esta ação é irreversível. Deseja continuar?");
+
+                ButtonType simBtn = new ButtonType("Sim", ButtonBar.ButtonData.YES);
+                ButtonType cancelarBtn = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
+                confirm.getButtonTypes().setAll(simBtn, cancelarBtn);
+
+                confirm.showAndWait().ifPresent(resp -> {
+                    if (resp == simBtn) {
+                        vendedorLogado.removerProduto(p);
+                        exibirProdutos(vendedorLogado.getMeusProdutos());
+                        try {
+                            App.caco.removerProduto(p.getNome());
+                        } catch (Exception e1) {
+                            e1.printStackTrace();
+                             mostrarAlerta("Produto não foi removido da lista de produtos do sistema");
+                        }
+                        mostrarAlerta("Produto removido com sucesso.");
+                    }
+                    // Se cancelou, não faz nada
+                });
+
             }
         });
     }
@@ -307,7 +339,7 @@ public class MeusProdutosController {
                     String descricao = descArea.getText();
                     String tipo = tipoCombo.getValue();
 
-                    if (nome.isEmpty() || preco < 0 || estoque <= 0) {
+                    if (nome.isEmpty() || preco < 0 || estoque < 0) {
                         throw new IllegalArgumentException();
                     }
 

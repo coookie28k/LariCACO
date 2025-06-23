@@ -36,11 +36,13 @@ public class PagamentoController {
 
         mostrarAlerta("Pagamento realizado com sucesso!");
 
+        App.sistema.setLogado(null);
         try {
             App.sistema.mostrarTela("TelaInicial");
         } catch (IOException e) {
             mostrarErro("Erro ao voltar ao início após o pagamento.");
         }
+
     }
 
     /* ---------- Botão Cancelar ---------- */

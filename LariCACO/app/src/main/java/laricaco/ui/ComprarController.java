@@ -45,7 +45,10 @@ public class ComprarController {
     /* ----------------------- init ------------------------------- */
     @FXML
     private void initialize() {
-        listaOriginal = new ArrayList<>(App.caco.getProdutos());
+        listaOriginal = App.caco.getProdutos().stream()
+                        .filter(p -> p.getEstoque() > 0)
+                        .collect(Collectors.toList());
+
 
         configurarSaldo();
         prepararFiltrosDisponiveis();     // enche mapas
