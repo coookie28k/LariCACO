@@ -2,13 +2,14 @@ package laricaco;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.io.Serializable;
 
 
 /**
  * Representa um item de venda no carrinho, contendo o produto, a quantidade
  * e a data da adição. Calcula o total com base no preço e possíveis promoções.
  */
-public class ItemVenda {
+public class ItemVenda implements Serializable {
     /**
      * Valor total do item (considerando preço unitário e quantidade).
      */

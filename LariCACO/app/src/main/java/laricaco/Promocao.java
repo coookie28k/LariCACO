@@ -1,10 +1,14 @@
 package laricaco;
 
+import java.io.Serializable;
+
 /**
  * Representa uma promoção aplicada a um produto, oferecendo um preço especial
  * para uma determinada quantidade de unidades.
  */
-public class Promocao {
+public class Promocao implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
 
     /** Quantidade de unidades necessárias para ativar a promoção. */
     private int unidades;

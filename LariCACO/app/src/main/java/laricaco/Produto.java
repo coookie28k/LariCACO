@@ -2,12 +2,13 @@ package laricaco;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 
 /**
  * Representa um produto genérico disponível para venda.
  * Pode conter promoções, ser associado a um vendedor e possuir tags descritivas.
  */
-public class Produto {
+public class Produto implements Serializable {
 
     /** Identificador único do produto. */
     private final int id;

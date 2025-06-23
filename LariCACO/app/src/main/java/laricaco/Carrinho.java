@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.io.Serializable;
 
 import laricaco.Exceptions.EstoqueInsuficienteException;
 
@@ -11,7 +12,7 @@ import laricaco.Exceptions.EstoqueInsuficienteException;
  * Representa um carrinho de compras que armazena itens de venda.
  * Permite adicionar, remover itens e calcular o total da compra.
  */
-public class Carrinho {
+public class Carrinho implements Serializable{
     private List<ItemVenda> itens;
     private boolean status;
 

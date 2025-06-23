@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="laricaco.LariCACOTest" tests="5" skipped="0" failures="2" errors="0" timestamp="2025-06-23T20:45:55" hostname="ACER-GLEISON" time="0.065">
+  <properties/>
+  <testcase name="adicionarItemNoCarrinho()" classname="laricaco.LariCACOTest" time="0.039"/>
+  <testcase name="precoNaPromocao()" classname="laricaco.LariCACOTest" time="0.003"/>
+  <testcase name="venderItens()" classname="laricaco.LariCACOTest" time="0.001"/>
+  <testcase name="filtroPorTipo()" classname="laricaco.LariCACOTest" time="0.01">
+    <failure message="org.opentest4j.AssertionFailedError: expected: &lt;1&gt; but was: &lt;3&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;1&gt; but was: &lt;3&gt;
+	at app//org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at app//org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at app//org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at app//org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:150)
+	at app//org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:145)
+	at app//org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:531)
+	at app//laricaco.LariCACOTest.filtroPorTipo(LariCACOTest.java:122)
+	at java.base@21.0.6/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base@21.0.6/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base@21.0.6/java.util.ArrayList.forEach(ArrayList.java:1596)
+</failure>
+  </testcase>
+  <testcase name="filtroPorTag()" classname="laricaco.LariCACOTest" time="0.002">
+    <failure message="org.opentest4j.AssertionFailedError: expected: &lt;2&gt; but was: &lt;4&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;2&gt; but was: &lt;4&gt;
+	at app//org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at app//org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at app//org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at app//org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:150)
+	at app//org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:145)
+	at app//org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:531)
+	at app//laricaco.LariCACOTest.filtroPorTag(LariCACOTest.java:101)
+	at java.base@21.0.6/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base@21.0.6/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base@21.0.6/java.util.ArrayList.forEach(ArrayList.java:1596)
+</failure>
+  </testcase>
+  <system-out><![CDATA[No carrinho: 2. Em estoque : 10
+No carrinho: 2. Em estoque : 10
+No carrinho: 2. Em estoque : 10
+No carrinho: 1. Em estoque : 10
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

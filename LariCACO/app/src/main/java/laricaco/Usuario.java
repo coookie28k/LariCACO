@@ -1,9 +1,10 @@
 package laricaco;
+import java.io.Serializable;
 
 /**
  * Representa um usuário do sistema, com login, senha, saldo e um carrinho de compras.
  */
-public class Usuario {
+public class Usuario implements Serializable{
 
     /** Login do usuário. */
     private String login;

@@ -1,5 +1,6 @@
 package laricaco;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,9 @@ import laricaco.Filtros.ProdutoPorTipoFiltro;
  * Classe que representa o sistema de gerenciamento de produtos, vendas,
  * usuários e promoções.
  */
-public class SistemaGerenciamento {
+public class SistemaGerenciamento implements Serializable {
+
+    private static final long serialVersionUID = 1L; // <- Versão de serialização
 
     /** Taxa de comissão sobre as vendas. */
     private double taxa;
@@ -31,7 +34,7 @@ public class SistemaGerenciamento {
     private List<ItemVenda> vendas;
 
     /** Lista de usuários cadastrados. */
-    private static List<Usuario> usuarios;
+    private List<Usuario> usuarios;
 
     /** Contador para geração de IDs únicos. */
     private int contagemId = 1;
@@ -61,24 +64,24 @@ public class SistemaGerenciamento {
 
         this.produtos = new ArrayList<>();
         this.vendas = new ArrayList<>();
-        SistemaGerenciamento.usuarios = new ArrayList<>();
+        this.usuarios = new ArrayList<>();
     }
 
     /**
-     * Método para instanciar um sistema gerenciamento, Design Pattern Singleton
-     * recebe os mesmo parametros do construtor
-     * @param taxa  taxa de comissão
-     * @param saldo saldo inicial do sistema
-     * @param login login administrativo
-     * @param senha senha administrativa
-     * @return a instancia única do sistema
+     * Retorna a instância única do sistema (Singleton).
      */
-
     public static SistemaGerenciamento getInstance(double taxa, double saldo, String login, String senha) {
         if (instancia == null) {
             instancia = new SistemaGerenciamento(taxa, saldo, login, senha);
         }
         return instancia;
+    }
+
+    /**
+     * Define uma instância já existente (usado após carregar de arquivo).
+     */
+    public static void setInstancia(SistemaGerenciamento sistema) {
+        instancia = sistema;
     }
 
     /**
@@ -169,7 +172,7 @@ public class SistemaGerenciamento {
      * @param usuarios nova lista de usuários.
      */
     public void setUsuarios(List<Usuario> usuarios) {
-        SistemaGerenciamento.usuarios = usuarios;
+        this.usuarios = usuarios;
     }
 
     /**
@@ -380,8 +383,8 @@ public class SistemaGerenciamento {
     public Vendedor virarVendedor(Usuario usuario, String senha) {
         if (usuario.verificarSenha(senha)) {
             Vendedor vendedor = new Vendedor(usuario.getLogin(), senha, usuario.getSaldo());
-            SistemaGerenciamento.usuarios.remove(usuario);
-            SistemaGerenciamento.usuarios.add(vendedor);
+            this.usuarios.remove(usuario);
+            this.usuarios.add(vendedor);
             return vendedor;
         }
         return null;

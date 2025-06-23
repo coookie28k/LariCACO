@@ -1,9 +1,13 @@
 package laricaco;
 
+import java.io.Serializable;
+
 /**
  * Representa uma tag para categorizar ou descrever produtos.
  */
-public class Tag {
+public class Tag implements Serializable{
+    
+    private static final long serialVersionUID = 1L;
 
      /** Descrição da tag. */
     private String descricaoTag;
