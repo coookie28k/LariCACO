@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
-<BorderPane style="-fx-background-color: #FFFDF6;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="laricaco.ui.PagamentoController">
+<BorderPane style="-fx-background-color: #FFFDF6;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="laricaco.controller.PagamentoController">
 
     <!-- Mensagem no topo -->
     <top>

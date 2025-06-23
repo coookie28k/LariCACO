@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 
-<BorderPane style="-fx-background-color: #FFFDF6;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="laricaco.ui.MeusProdutosController">
+<BorderPane style="-fx-background-color: #FFFDF6;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="laricaco.controller.MeusProdutosController">
 
     <!-- Barra superior:  ← Voltar |   Meus Produtos   -->
     <top>

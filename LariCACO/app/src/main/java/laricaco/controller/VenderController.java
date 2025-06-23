@@ -1,7 +1,7 @@
 // ===============================
 // VenderController.java
 // ===============================
-package laricaco.ui;
+package laricaco.controller;
 
 import java.io.IOException;
 
