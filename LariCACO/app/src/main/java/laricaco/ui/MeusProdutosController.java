@@ -11,8 +11,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -118,6 +120,17 @@ public class MeusProdutosController {
         descArea.setPrefRowCount(3);
         TextField estoqueField = new TextField(String.valueOf(p.getEstoque()));
 
+        // TAMANHO (só se for Adesivo)
+        ComboBox<String> tamanhoCombo = new ComboBox<>();
+        tamanhoCombo.getItems().addAll("Pequeno", "Médio", "Grande");
+        boolean ehAdesivo = p instanceof laricaco.Adesivo;
+        tamanhoCombo.setVisible(ehAdesivo);
+        tamanhoCombo.setManaged(ehAdesivo);
+        if (ehAdesivo) {
+            tamanhoCombo.getSelectionModel().select(
+                ((laricaco.Adesivo) p).getTamanho());
+        }
+
         ListView<Tag> tagList = new ListView<>();
         // alytura da lista de tags
         tagList.setPrefHeight(80);
@@ -171,6 +184,8 @@ public class MeusProdutosController {
         grid.add(descArea, 1, row++);
         grid.add(new Label("Estoque:"), 0, row);
         grid.add(estoqueField, 1, row++);
+        grid.add(new Label("Tamanho:"), 0, row);
+        grid.add(tamanhoCombo, 1, row++);
         grid.add(new Label("Tags:"), 0, row);
         grid.add(tagList, 1, row++);
         grid.add(novaTagField, 1, row);
@@ -211,6 +226,11 @@ public class MeusProdutosController {
                     p.setPreco(novoPreco);
                     p.setDescricao(descArea.getText());
                     p.setEstoque(novoEstoque);
+
+                    if (ehAdesivo) {
+                        ((laricaco.Adesivo) p).setTamanho( 
+                            tamanhoCombo.getValue());    
+                    }
 
                     p.getTag().clear();
                     tagList.getItems().forEach(p::adicionarTag);
@@ -306,8 +326,31 @@ public class MeusProdutosController {
         tipoCombo.getItems().addAll("Doce", "Salgado", "Adesivo");
         tipoCombo.getSelectionModel().selectFirst();
 
+        //TAMANHO (inicia oculto)
+        Label tamanhoLbl = new Label("Tamanho:");
+        ComboBox<String> tamanhoCombo = new ComboBox<>();
+        tamanhoCombo.getItems().addAll("Pequeno", "Médio", "Grande");
+        tamanhoLbl.setVisible(false);    tamanhoLbl.setManaged(false);
+        tamanhoCombo.setVisible(false);  tamanhoCombo.setManaged(false);
+
+        //  listener para mostrar/ocultar dinamicamente
+        tipoCombo.valueProperty().addListener(
+            (obs, oldV, newV) -> {
+                boolean adesivo = "Adesivo".equals(newV);
+                tamanhoLbl.setVisible(adesivo);   tamanhoLbl.setManaged(adesivo);
+                tamanhoCombo.setVisible(adesivo); tamanhoCombo.setManaged(adesivo);
+        });
+
         // Tags
         ListView<Tag> tagList = new ListView<>();
+            tagList.setCellFactory(lv -> new ListCell<>() {
+            @Override
+            protected void updateItem(Tag item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty || item == null ? null : item.getTag());
+            }
+        });
+
         TextField novaTagField = new TextField();
         novaTagField.setPromptText("Nova tag");
         Button addTagBtn = new Button("Adicionar Tag");
@@ -334,6 +377,8 @@ public class MeusProdutosController {
         grid.add(descArea, 1, row++);
         grid.add(new Label("Estoque:"), 0, row);
         grid.add(estoqueField, 1, row++);
+        grid.add(tamanhoLbl, 0, row);
+        grid.add(tamanhoCombo, 1, row++);
         grid.add(new Label("Tags:"), 0, row);
         grid.add(tagList, 1, row++);
         grid.add(novaTagField, 1, row);
@@ -366,7 +411,7 @@ public class MeusProdutosController {
                         case "Salgado" ->
                             novo = App.caco.cadastrarSalgado(nome, preco, descricao, estoque, vendedorLogado);
                         case "Adesivo" -> novo = App.caco.cadastrarAdesivo(nome, preco, descricao, estoque,
-                                vendedorLogado, "pequeno");
+                                vendedorLogado, tamanhoCombo.getValue());
                         default -> throw new IllegalArgumentException("Tipo inválido");
                     }
 
