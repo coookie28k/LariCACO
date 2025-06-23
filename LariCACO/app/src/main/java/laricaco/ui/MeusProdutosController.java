@@ -35,7 +35,8 @@ import laricaco.Vendedor;
 public class MeusProdutosController {
 
     /* ------------ FXML ------------ */
-    @FXML private FlowPane produtosPane;
+    @FXML
+    private FlowPane produtosPane;
 
     /* ------------ Estado ------------ */
     private Vendedor vendedorLogado;
@@ -52,33 +53,34 @@ public class MeusProdutosController {
     }
 
     /*
-     Solicita a senha ao usuário e tenta convertê‑lo em Vendedor.
-     
-    private void tentarVirarVendedor() {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Tornar‑se Vendedor");
-        dialog.setHeaderText("Para gerenciar produtos é necessário ser vendedor.");
-        dialog.setContentText("Confirme sua senha:");
-
-        dialog.showAndWait().ifPresent(senha -> {
-            Vendedor v = App.caco.virarVendedor(usuarioLogado, senha);
-            if (v != null) {
-                usuarioLogado = v;
-                App.sistema.setLogado(v);   // mantém sessão consistente
-            } else {
-                mostrarAlerta("Senha incorreta. Não foi possível tornar‑se vendedor.");
-            }
-        });
-    } */
+     * Solicita a senha ao usuário e tenta convertê‑lo em Vendedor.
+     * 
+     * private void tentarVirarVendedor() {
+     * TextInputDialog dialog = new TextInputDialog();
+     * dialog.setTitle("Tornar‑se Vendedor");
+     * dialog.setHeaderText("Para gerenciar produtos é necessário ser vendedor.");
+     * dialog.setContentText("Confirme sua senha:");
+     * 
+     * dialog.showAndWait().ifPresent(senha -> {
+     * Vendedor v = App.caco.virarVendedor(usuarioLogado, senha);
+     * if (v != null) {
+     * usuarioLogado = v;
+     * App.sistema.setLogado(v); // mantém sessão consistente
+     * } else {
+     * mostrarAlerta("Senha incorreta. Não foi possível tornar‑se vendedor.");
+     * }
+     * });
+     * }
+     */
 
     /* ------------ Exibição ------------ */
     private void exibirProdutos(List<Produto> lista) {
         produtosPane.getChildren().clear();
 
         lista.stream()
-             .sorted(Comparator.comparing(Produto::getNome, String.CASE_INSENSITIVE_ORDER))
-             .map(this::criarCardProduto)
-             .forEach(produtosPane.getChildren()::add);
+                .sorted(Comparator.comparing(Produto::getNome, String.CASE_INSENSITIVE_ORDER))
+                .map(this::criarCardProduto)
+                .forEach(produtosPane.getChildren()::add);
     }
 
     /* Cria um card com Nome, Estoque e botão Editar */
@@ -86,8 +88,8 @@ public class MeusProdutosController {
         VBox card = new VBox(6);
         card.setPrefWidth(160);
         card.setStyle("""
-            -fx-padding:10; -fx-border-color:#c0c0c0; -fx-border-radius:6;
-            -fx-background-radius:6; -fx-background-color:#fafafa;""");
+                -fx-padding:10; -fx-border-color:#c0c0c0; -fx-border-radius:6;
+                -fx-background-radius:6; -fx-background-color:#fafafa;""");
 
         Text nome = new Text(p.getNome());
         nome.setStyle("-fx-font-weight:bold;");
@@ -117,7 +119,7 @@ public class MeusProdutosController {
         TextField estoqueField = new TextField(String.valueOf(p.getEstoque()));
 
         ListView<Tag> tagList = new ListView<>();
-        //alytura da lista de tags
+        // alytura da lista de tags
         tagList.setPrefHeight(80);
         tagList.getItems().addAll(p.getTag());
 
@@ -161,18 +163,25 @@ public class MeusProdutosController {
         grid.setVgap(8);
         grid.setHgap(10);
         int row = 0;
-        grid.add(new Label("Nome:"), 0, row); grid.add(nomeField, 1, row++);
-        grid.add(new Label("Preço (R$):"), 0, row); grid.add(precoField, 1, row++);
-        grid.add(new Label("Descrição:"), 0, row); grid.add(descArea, 1, row++);
-        grid.add(new Label("Estoque:"), 0, row); grid.add(estoqueField, 1, row++);
-        grid.add(new Label("Tags:"), 0, row); grid.add(tagList, 1, row++);
+        grid.add(new Label("Nome:"), 0, row);
+        grid.add(nomeField, 1, row++);
+        grid.add(new Label("Preço (R$):"), 0, row);
+        grid.add(precoField, 1, row++);
+        grid.add(new Label("Descrição:"), 0, row);
+        grid.add(descArea, 1, row++);
+        grid.add(new Label("Estoque:"), 0, row);
+        grid.add(estoqueField, 1, row++);
+        grid.add(new Label("Tags:"), 0, row);
+        grid.add(tagList, 1, row++);
         grid.add(novaTagField, 1, row);
         grid.add(addTagBtn, 2, row);
         row++;
         grid.add(promocaoCheck, 0, row, 2, 1);
         row++;
-        grid.add(new Label("Unidades:"), 0, row); grid.add(promoUnidadesField, 1, row++);
-        grid.add(new Label("Preço promocional (R$):"), 0, row); grid.add(promoPrecoField, 1, row++);
+        grid.add(new Label("Unidades:"), 0, row);
+        grid.add(promoUnidadesField, 1, row++);
+        grid.add(new Label("Preço promocional (R$):"), 0, row);
+        grid.add(promoPrecoField, 1, row++);
 
         dialog.getDialogPane().setContent(grid);
 
@@ -225,23 +234,22 @@ public class MeusProdutosController {
                     }
 
                     exibirProdutos(vendedorLogado.getMeusProdutos());
-                    
 
                 } catch (IllegalArgumentException ex) {
                     mostrarAlerta("Campos inválidos. Verifique nome, preço e estoque.");
                 }
 
             } else if (bt == removerBtnType) {
-                    // Se ainda restam unidades em estoque, avisa e bloqueia a remoção
+                // Se ainda restam unidades em estoque, avisa e bloqueia a remoção
                 if (p.getEstoque() > 0) {
                     Alert alertaEstoque = new Alert(Alert.AlertType.INFORMATION);
                     alertaEstoque.setTitle("Remover Produto");
                     alertaEstoque.setHeaderText("Não é possível remover \"" + p.getNome() + "\".");
                     alertaEstoque.setContentText(
-                        "Antes de excluir o produto, remova todas as " +
-                        p.getEstoque() + " unidades\n do estoque (defina estoque como 0).");
+                            "Antes de excluir o produto, remova todas as " +
+                                    p.getEstoque() + " unidades\n do estoque (defina estoque como 0).");
                     alertaEstoque.showAndWait();
-                    return;   // cancela a ação de remoção
+                    return; // cancela a ação de remoção
                 }
 
                 // Estoque já está zerado -- pede confirmação final ao usuário
@@ -262,7 +270,7 @@ public class MeusProdutosController {
                             App.caco.removerProduto(p.getNome());
                         } catch (Exception e1) {
                             e1.printStackTrace();
-                             mostrarAlerta("Produto não foi removido da lista de produtos do sistema");
+                            mostrarAlerta("Produto não foi removido da lista de produtos do sistema");
                         }
                         mostrarAlerta("Produto removido com sucesso.");
                     }
@@ -273,12 +281,13 @@ public class MeusProdutosController {
         });
     }
 
-
     /* ------------ Botões ------------ */
     @FXML
-    private void onVoltar() { trocarTela("Vender", "Não foi possível voltar."); }
+    private void onVoltar() {
+        trocarTela("Vender", "Não foi possível voltar.");
+    }
 
-        @FXML
+    @FXML
     private void onAdicionarProduto() {
 
         Dialog<ButtonType> dialog = new Dialog<>();
@@ -288,7 +297,7 @@ public class MeusProdutosController {
         // Campos
         TextField nomeField = new TextField();
         TextField precoField = new TextField();
-        TextArea descArea = new TextArea(); 
+        TextArea descArea = new TextArea();
         descArea.setPrefRowCount(3);
         TextField estoqueField = new TextField();
 
@@ -315,13 +324,20 @@ public class MeusProdutosController {
         grid.setVgap(8);
         grid.setHgap(10);
         int row = 0;
-        grid.add(new Label("Tipo:"), 0, row);          grid.add(tipoCombo, 1, row++);
-        grid.add(new Label("Nome:"), 0, row);          grid.add(nomeField, 1, row++);
-        grid.add(new Label("Preço (R$):"), 0, row);    grid.add(precoField, 1, row++);
-        grid.add(new Label("Descrição:"), 0, row);     grid.add(descArea, 1, row++);
-        grid.add(new Label("Estoque:"), 0, row);       grid.add(estoqueField, 1, row++);
-        grid.add(new Label("Tags:"), 0, row);          grid.add(tagList, 1, row++);
-        grid.add(novaTagField, 1, row);                 grid.add(addTagBtn, 2, row);
+        grid.add(new Label("Tipo:"), 0, row);
+        grid.add(tipoCombo, 1, row++);
+        grid.add(new Label("Nome:"), 0, row);
+        grid.add(nomeField, 1, row++);
+        grid.add(new Label("Preço (R$):"), 0, row);
+        grid.add(precoField, 1, row++);
+        grid.add(new Label("Descrição:"), 0, row);
+        grid.add(descArea, 1, row++);
+        grid.add(new Label("Estoque:"), 0, row);
+        grid.add(estoqueField, 1, row++);
+        grid.add(new Label("Tags:"), 0, row);
+        grid.add(tagList, 1, row++);
+        grid.add(novaTagField, 1, row);
+        grid.add(addTagBtn, 2, row);
 
         dialog.getDialogPane().setContent(grid);
 
@@ -347,8 +363,10 @@ public class MeusProdutosController {
                     // Usa métodos de cadastro conforme tipo
                     switch (tipo) {
                         case "Doce" -> novo = App.caco.cadastrarDoce(nome, preco, descricao, estoque, vendedorLogado);
-                        case "Salgado" -> novo = App.caco.cadastrarSalgado(nome, preco, descricao, estoque, vendedorLogado);
-                        case "Adesivo" -> novo = App.caco.cadastrarAdesivo(nome, preco, descricao, estoque, vendedorLogado);
+                        case "Salgado" ->
+                            novo = App.caco.cadastrarSalgado(nome, preco, descricao, estoque, vendedorLogado);
+                        case "Adesivo" -> novo = App.caco.cadastrarAdesivo(nome, preco, descricao, estoque,
+                                vendedorLogado, "pequeno");
                         default -> throw new IllegalArgumentException("Tipo inválido");
                     }
 
@@ -358,7 +376,7 @@ public class MeusProdutosController {
                     exibirProdutos(vendedorLogado.getMeusProdutos());
                     mostrarAlerta("Produto adicionado com sucesso.");
 
-                } catch ( IllegalArgumentException ex) {
+                } catch (IllegalArgumentException ex) {
                     mostrarAlerta("Campos inválidos. Verifique nome, preço e estoque.");
                 } catch (Exception ex) {
                     mostrarAlerta("Erro ao cadastrar produto: " + ex.getMessage());
@@ -367,11 +385,14 @@ public class MeusProdutosController {
         });
     }
 
-
     /* ------------ Utilidades ------------ */
     private void trocarTela(String fxml, String erroMsg) {
-        try { App.sistema.mostrarTela(fxml); }
-        catch (IOException e) { mostrarAlerta(erroMsg); e.printStackTrace(); }
+        try {
+            App.sistema.mostrarTela(fxml);
+        } catch (IOException e) {
+            mostrarAlerta(erroMsg);
+            e.printStackTrace();
+        }
     }
 
     private void mostrarAlerta(String msg) {

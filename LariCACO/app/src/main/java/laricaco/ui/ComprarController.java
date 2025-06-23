@@ -32,30 +32,33 @@ import laricaco.Usuario;
 public class ComprarController {
 
     /* --------------------------- FXML --------------------------- */
-    @FXML private Label saldoLabel;
-    @FXML private ComboBox<String> filtroTipoCombo;   // NOVO
-    @FXML private ComboBox<String> filtroValorCombo;  // NOVO
-    @FXML private FlowPane produtosPane;
+    @FXML
+    private Label saldoLabel;
+    @FXML
+    private ComboBox<String> filtroTipoCombo; // NOVO
+    @FXML
+    private ComboBox<String> filtroValorCombo; // NOVO
+    @FXML
+    private FlowPane produtosPane;
 
     /* -------------------- dados e caches ------------------------ */
     private List<Produto> listaOriginal;
     private final Map<String, Filtro<Produto>> filtrosTipoMap = new HashMap<>();
-    private final Map<String, Filtro<Produto>> filtrosTagMap  = new HashMap<>();
+    private final Map<String, Filtro<Produto>> filtrosTagMap = new HashMap<>();
 
     /* ----------------------- init ------------------------------- */
     @FXML
     private void initialize() {
         listaOriginal = App.caco.getProdutos().stream()
-                        .filter(p -> p.getEstoque() > 0)
-                        .collect(Collectors.toList());
-
+                .filter(p -> p.getEstoque() > 0)
+                .collect(Collectors.toList());
 
         configurarSaldo();
-        prepararFiltrosDisponiveis();     // enche mapas
-        configurarComboTipo();           // popula primeiro combo
-        configurarComboValor();          // popula/ouve segundo combo
+        prepararFiltrosDisponiveis(); // enche mapas
+        configurarComboTipo(); // popula primeiro combo
+        configurarComboValor(); // popula/ouve segundo combo
 
-        exibirProdutos(listaOriginal);   // tudo à primeira vista
+        exibirProdutos(listaOriginal); // tudo à primeira vista
     }
 
     /* ---- saldo ---- */
@@ -69,18 +72,18 @@ public class ComprarController {
     private void prepararFiltrosDisponiveis() {
         /* ---------- por TIPO (classe concreta) ---------- */
         Set<Class<? extends Produto>> tipos = listaOriginal.stream()
-                                                           .map(Produto::getClass)
-                                                           .collect(Collectors.toSet());
+                .map(Produto::getClass)
+                .collect(Collectors.toSet());
 
-        filtrosTipoMap.put("Todos", l -> l);                          // identidade
+        filtrosTipoMap.put("Todos", l -> l); // identidade
         tipos.forEach(c -> filtrosTipoMap.put(
                 c.getSimpleName(), new ProdutoPorTipoFiltro(c)));
 
         /* ---------- por TAG ---------- */
         Set<String> tags = listaOriginal.stream()
-                                        .flatMap(p -> p.getTag().stream())
-                                        .map(Tag::getTag)
-                                        .collect(Collectors.toSet());
+                .flatMap(p -> p.getTag().stream())
+                .map(Tag::getTag)
+                .collect(Collectors.toSet());
 
         filtrosTagMap.put("Todos", l -> l);
         tags.forEach(t -> filtrosTagMap.put(
@@ -95,16 +98,17 @@ public class ComprarController {
 
         // Muda as opções do 2º combo toda vez que tipo muda
         filtroTipoCombo.valueProperty().addListener((o, oldVal, newVal) -> {
-            if (newVal == null) return;
+            if (newVal == null)
+                return;
             List<String> valores;
             switch (newVal) {
                 case "Tipo" -> valores = new ArrayList<>(filtrosTipoMap.keySet());
-                case "Tag"  -> valores = new ArrayList<>(filtrosTagMap.keySet());
-                default     -> valores = List.of("Todos");
+                case "Tag" -> valores = new ArrayList<>(filtrosTagMap.keySet());
+                default -> valores = List.of("Todos");
             }
             filtroValorCombo.setItems(FXCollections.observableArrayList(valores));
             filtroValorCombo.getSelectionModel().select("Todos");
-            aplicarFiltro();  // exibe de acordo com novo default
+            aplicarFiltro(); // exibe de acordo com novo default
         });
     }
 
@@ -116,8 +120,8 @@ public class ComprarController {
 
     /* ---- Aplica filtro conforme ambos combos ---- */
     private void aplicarFiltro() {
-        String tipoSelecionado   = filtroTipoCombo.getValue();
-        String valorSelecionado  = filtroValorCombo.getValue();
+        String tipoSelecionado = filtroTipoCombo.getValue();
+        String valorSelecionado = filtroValorCombo.getValue();
 
         if (tipoSelecionado == null || valorSelecionado == null || "Todos".equals(tipoSelecionado)) {
             exibirProdutos(listaOriginal);
@@ -137,20 +141,20 @@ public class ComprarController {
     private void exibirProdutos(List<Produto> lista) {
         produtosPane.getChildren().clear();
         lista.stream()
-             .sorted(Comparator.comparing(Produto::getNome, String.CASE_INSENSITIVE_ORDER))
-             .map(this::criarCardProduto)
-             .forEach(produtosPane.getChildren()::add);
+                .sorted(Comparator.comparing(Produto::getNome, String.CASE_INSENSITIVE_ORDER))
+                .map(this::criarCardProduto)
+                .forEach(produtosPane.getChildren()::add);
     }
 
     private Node criarCardProduto(Produto p) {
         VBox card = new VBox(5);
         card.setStyle("""
-            -fx-padding:10; 
-            -fx-border-color:#c0c0c0; 
-            -fx-border-radius:6;
-            -fx-background-radius:6; 
-            -fx-background-color:#fafafa;
-        """);
+                    -fx-padding:10;
+                    -fx-border-color:#c0c0c0;
+                    -fx-border-radius:6;
+                    -fx-background-radius:6;
+                    -fx-background-color:#fafafa;
+                """);
         card.setPrefWidth(160);
 
         Text nome = new Text(p.getNome());
@@ -162,7 +166,7 @@ public class ComprarController {
         Label quantidadeLabel = new Label("1");
         quantidadeLabel.setStyle("-fx-font-size: 14px; -fx-min-width: 30px; -fx-alignment: center;");
 
-        final int[] quantidade = {1};
+        final int[] quantidade = { 1 };
 
         Button menos = new Button("-");
         Button mais = new Button("+");
@@ -199,11 +203,9 @@ public class ComprarController {
         return card;
     }
 
-
-
     private void adicionarAoCarrinho(Produto p, int quantidade) {
         try {
-            App.sistema.getLogado().getCarrinho().adicionarItem(p, quantidade);
+            App.sistema.getLogado().adicionarNoCarrinho(p, quantidade);
             mostrarAlerta("Carrinho", p.getNome() + " adicionado!");
         } catch (EstoqueInsuficienteException e) {
             mostrarErro("Estoque insuficiente para " + p.getNome() + ".");
@@ -214,10 +216,13 @@ public class ComprarController {
     }
 
     /* ---- navegação ---- */
-    @FXML private void onVoltar() {
+    @FXML
+    private void onVoltar() {
         trocarTela("MenuUsuario", "Não foi possível voltar ao menu.");
     }
-    @FXML private void onCarrinho() {
+
+    @FXML
+    private void onCarrinho() {
         try {
             App.sistema.mostrarTela("CarrinhoCompras");
         } catch (IOException e) {
@@ -227,14 +232,28 @@ public class ComprarController {
     }
 
     private void trocarTela(String fxml, String erroMsg) {
-        try { App.sistema.mostrarTela(fxml); }
-        catch (IOException e) { e.printStackTrace(); mostrarErro(erroMsg); }
+        try {
+            App.sistema.mostrarTela(fxml);
+        } catch (IOException e) {
+            e.printStackTrace();
+            mostrarErro(erroMsg);
+        }
     }
 
     /* ---- diálogos ---- */
-    private void mostrarAlerta(String t, String m) { alert(Alert.AlertType.INFORMATION, t, m); }
-    private void mostrarErro  (String m)           { alert(Alert.AlertType.ERROR,       "Erro", m); }
+    private void mostrarAlerta(String t, String m) {
+        alert(Alert.AlertType.INFORMATION, t, m);
+    }
+
+    private void mostrarErro(String m) {
+        alert(Alert.AlertType.ERROR, "Erro", m);
+    }
+
     private void alert(Alert.AlertType tipo, String titulo, String msg) {
-        Alert a = new Alert(tipo); a.setTitle(titulo); a.setHeaderText(null); a.setContentText(msg); a.showAndWait();
+        Alert a = new Alert(tipo);
+        a.setTitle(titulo);
+        a.setHeaderText(null);
+        a.setContentText(msg);
+        a.showAndWait();
     }
 }

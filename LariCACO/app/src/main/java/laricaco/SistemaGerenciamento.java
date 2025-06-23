@@ -155,13 +155,14 @@ public class SistemaGerenciamento {
         return s;
     }
 
-    public Adesivo cadastrarAdesivo(String nome, double preco, String descricao, int estoque, Vendedor vendedor)
+    public Adesivo cadastrarAdesivo(String nome, double preco, String descricao, int estoque, Vendedor vendedor,
+            String tamanho)
             throws Exception {
 
         if (estoque <= 0)
             throw new QuantidadeInvalidaException();
 
-        Adesivo a = new Adesivo(contagemId, nome, preco, descricao, estoque, "pequeno");
+        Adesivo a = new Adesivo(contagemId, nome, preco, descricao, estoque, tamanho);
         a.setVendedor(vendedor);
         this.produtos.add(a);
         vendedor.adicionarProduto(a);

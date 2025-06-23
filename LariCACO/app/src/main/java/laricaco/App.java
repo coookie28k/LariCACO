@@ -4,9 +4,6 @@
 
 package laricaco;
 
-import java.time.LocalDate;
-import java.util.List;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -29,55 +26,30 @@ public class App extends Application {
     public static void main(String[] args) throws Exception {
 
         caco = new SistemaGerenciamento(0.1, 0, "caco@mail.com", "senhacaco");
-        Usuario lina = caco.criarUsuario("lina@mail.com", "senha123", 200);
         Usuario vend = caco.criarUsuario("vend@mail.com", "senha456", 100);
         Vendedor vendedor = caco.virarVendedor(vend, "senha456");
 
         Doce brigadeiro = caco.cadastrarDoce("brigadeiro", 5, "Brigadeiro!", 10, vendedor);
-        brigadeiro.adicionarTag("Sem lactose");
+        brigadeiro.adicionarTag("Contem lactose");
+        brigadeiro.adicionarTag("Vegetariano");
+
         Salgado coxinha = caco.cadastrarSalgado("coxinha", 5, "Coxinha!", 10, vendedor);
+        coxinha.adicionarTag("Contem carne");
+        coxinha.adicionarTag("Sem lactose");
         caco.adicionarPromocao(coxinha, 2, 2);
 
-        lina.getCarrinho().adicionarItem(coxinha, 2);
-        lina.getCarrinho().adicionarItem(brigadeiro, 2);
+        Salgado paoDeQueijo = caco.cadastrarSalgado("pao de queijo", 4, "Pao de queijo!", 10, vendedor);
+        paoDeQueijo.adicionarTag("Vegetariano");
+        paoDeQueijo.adicionarTag("Contem lactose");
 
-        System.out.println("Saldo de lina: " + lina.getSaldo());
-        System.out.println("Saldo de vendedor: " + vendedor.getSaldo());
-        System.out.println("Saldo de caco: " + caco.getSaldo());
-        caco.realizarVenda(lina);
+        Adesivo adesivoPeixe = caco.cadastrarAdesivo("adesivo eu odeio o peixe do bandejao", 10,
+                "Adesivo com o desenho de um peixe", 20, vendedor, "medio");
+        adesivoPeixe.adicionarTag("Adesivo medio");
 
-        System.out.println("\nSaldo de lina: " + lina.getSaldo());
-        System.out.println("Saldo de vendedor: " + vendedor.getSaldo());
-        System.out.println("Saldo de caco: " + caco.getSaldo() + "\n");
+        Adesivo adesivoWordpress = caco.cadastrarAdesivo("adesivo eu codo em wordpress", 10,
+                "Adesivo eu codo em wordpress", 20, vendedor, "pequeno");
+        adesivoWordpress.adicionarTag("Adesivo pequeno");
 
-        vendedor.imprimirVendas();
-        vendedor.imprimirProdutos();
-        caco.imprimirProdutos();
-
-        List<Produto> filtroProd = caco.filtrarPorTipo(Salgado.class);
-        System.out.println("Filtro de salgados");
-        for (Produto prod : filtroProd)
-            System.out.println(prod.getId() + " - " + prod.getNome() + " (" + prod.getEstoque() + ")");
-
-        System.out.println();
-
-        List<ItemVenda> filtroItem = caco.filtrarPorData(LocalDate.of(2025, 4, 1), LocalDate.of(2025, 6, 28));
-        System.out.println("Filtro de data");
-        for (ItemVenda it : filtroItem)
-            System.out.println(it.getProduto().getNome() + " - " + it.getDataFormatada());
-
-        System.out.println();
-        List<Produto> filtroTag = caco.filtrarPorTag("Sem lactose");
-        System.out.println("Filtro sem lactose");
-        for (Produto prod : filtroTag)
-            System.out.println(prod.getId() + " - " + prod.getNome() + " (" + prod.getEstoque() + ")");
-
-        List<Usuario> lista = caco.getUsuarios(); // ou App.caco.usuarios(), conforme o seu código
-
-        if (lista == null || lista.isEmpty()) {
-            System.out.println("Nenhum usuário cadastrado.");
-            return;
-        }
         launch(args);
     }
 }

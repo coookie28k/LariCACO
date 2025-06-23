@@ -45,6 +45,10 @@ public class Usuario {
         this.carrinho = carrinho;
     }
 
+    public void adicionarNoCarrinho(Produto p, int quant) throws Exception {
+        this.carrinho.adicionarItem(p, quant);
+    }
+
     public void adicionarSaldo(double valor) {
         this.saldo += valor;
     }
