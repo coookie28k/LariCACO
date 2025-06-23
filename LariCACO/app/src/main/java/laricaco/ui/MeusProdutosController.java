@@ -24,6 +24,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import laricaco.App;
 import laricaco.Exceptions.ProdutoNaoEncontradoException;
+import laricaco.Exceptions.QuantidadeInvalidaException;
 import laricaco.Produto;
 import laricaco.Tag;
 import laricaco.Vendedor;
@@ -433,7 +434,7 @@ public class MeusProdutosController {
                     String descricao = descArea.getText();
                     String tipo = tipoCombo.getValue();
 
-                    if (nome.isEmpty() || preco < 0 || estoque < 0) {
+                    if (nome.isEmpty() || preco < 0) {
                         throw new IllegalArgumentException();
                     }
 
@@ -454,10 +455,12 @@ public class MeusProdutosController {
                     exibirProdutos(vendedorLogado.getMeusProdutos());
                     mostrarAlerta("Produto adicionado com sucesso.");
 
+                } catch( QuantidadeInvalidaException ex){
+                    mostrarErro(ex.getMessage());
                 } catch (IllegalArgumentException ex) {
-                    mostrarAlerta("Campos inválidos. Verifique nome, preço e estoque.");
+                    mostrarErro("Campos inválidos. Verifique nome, preço e estoque.");
                 } catch (Exception ex) {
-                    mostrarAlerta("Erro ao cadastrar produto: " + ex.getMessage());
+                    mostrarErro("Erro ao cadastrar produto: " + ex.getMessage());
                 }
             }
         });
