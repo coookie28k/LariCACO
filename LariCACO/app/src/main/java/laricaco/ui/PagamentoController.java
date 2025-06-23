@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import laricaco.App;
 import laricaco.Carrinho;
+import laricaco.Exceptions.SaldoInsuficienteException;
 
 /**
  * Controller responsável pela tela de pagamento.
@@ -53,17 +54,23 @@ public class PagamentoController {
             return;
         }
 
-        App.caco.realizarVenda(App.sistema.getLogado());
-
-        mostrarAlerta("Pagamento realizado com sucesso!");
-
-        //Desliga o usuario
-        App.sistema.setLogado(null);
         try {
-            App.sistema.mostrarTela("TelaInicial");
-        } catch (IOException e) {
-            mostrarErro("Erro ao voltar ao início após o pagamento.");
-        }
+            App.caco.realizarVenda(App.sistema.getLogado());
+            mostrarAlerta("Pagamento realizado com sucesso!");
+            //Desliga o usuario
+            App.sistema.setLogado(null);
+            try {
+                App.sistema.mostrarTela("TelaInicial");
+            } catch (IOException e) {
+                mostrarErro("Erro ao voltar ao início após o pagamento.");
+            }
+        } catch (SaldoInsuficienteException e){
+            mostrarErro(e.getMessage());
+        } catch (Exception e) {
+            mostrarErro("Erro ao realizar a venda.");
+        }    
+
+        
 
     }
 
@@ -74,7 +81,7 @@ public class PagamentoController {
     @FXML
     private void onCancelar() {
         try {
-            App.sistema.mostrarTela("TelaCarrinho");
+            App.sistema.mostrarTela("CarrinhoCompras");
         } catch (IOException e) {
             mostrarErro("Erro ao voltar para o carrinho.");
         }
