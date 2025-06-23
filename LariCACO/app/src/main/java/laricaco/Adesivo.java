@@ -1,5 +1,9 @@
 package laricaco;
 
+/**
+ * Representa um adesivo que é um tipo de produto disponível no sistema.
+ * Herda os atributos e comportamentos da classe {@link Produto}.
+ */
 public class Adesivo extends Produto {
     private String tamanho;
 

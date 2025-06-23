@@ -7,7 +7,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Classe que representa o sistema UI de puxar telas.
+ */
 public class SistemaUI {
+
     /** Stage principal da aplicação (janela). */
     private Stage stage;
 
@@ -62,10 +66,20 @@ public class SistemaUI {
         return stage;
     }
 
+    /**
+     * Retorna o usuário atualmente logado no sistema.
+     * 
+     * @return objeto {@link Usuario} logado, ou null se ninguém estiver logado
+     */
     public Usuario getLogado() {
         return logado;
     }
 
+    /**
+     * Define o usuário atualmente logado no sistema.
+     * 
+     * @param logado objeto {@link Usuario} que será definido como logado
+     */
     public void setLogado(Usuario logado) {
         this.logado = logado;
     }
