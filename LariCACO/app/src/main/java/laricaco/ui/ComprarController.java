@@ -162,6 +162,23 @@ public class ComprarController {
 
         Text preco = new Text(String.format("R$ %.2f", p.getPreco()));
 
+        //para aparecer tags
+        FlowPane tagsPane = new FlowPane(4, 4);
+        tagsPane.setPrefWrapLength(140);
+        tagsPane.setStyle("-fx-padding:4 0 4 0;");
+
+        for (Tag t : p.getTag()) {
+            Label tagLabel = new Label(t.getTag());
+            tagLabel.setStyle("""
+                -fx-background-color:#e0e0e0;
+                -fx-background-radius:12;
+                -fx-padding:2 6 2 6;
+                -fx-font-size:10px;
+            """);
+            tagsPane.getChildren().add(tagLabel);
+        }
+
+
         // Quantidade com mínimo 1
         Label quantidadeLabel = new Label("1");
         quantidadeLabel.setStyle("-fx-font-size: 14px; -fx-min-width: 30px; -fx-alignment: center;");
@@ -199,7 +216,7 @@ public class ComprarController {
             }
         });
 
-        card.getChildren().addAll(nome, preco, quantidadeBox, add);
+        card.getChildren().addAll(nome, preco, tagsPane, quantidadeBox, add);
         return card;
     }
 
