@@ -9,6 +9,7 @@ public class Produto {
     private double preco;
     private String descricao;
     private int estoque;
+    private int noCarrinho;
 
     private Vendedor vendedor;
     private List<Tag> tagProduto;
@@ -24,6 +25,7 @@ public class Produto {
         this.vendedor = null;
         this.tagProduto = new ArrayList<>();
         this.promocao = null;
+        this.noCarrinho = 0;
     }
 
     public int getId() {
@@ -114,5 +116,17 @@ public class Produto {
 
     public void setPromocao(Promocao promocao) {
         this.promocao = promocao;
+    }
+
+    public int getNoCarrinho() {
+        return noCarrinho;
+    }
+
+    public void adicionarQuantidadeNoCarrinho(int quant) {
+        this.noCarrinho += quant;
+    }
+
+    public void retirarQuantidadeDoCarrinho(int quant) {
+        this.noCarrinho -= quant;
     }
 }

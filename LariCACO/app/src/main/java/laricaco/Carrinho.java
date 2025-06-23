@@ -33,10 +33,12 @@ public class Carrinho {
     }
 
     public void adicionarItem(Produto prod, int quant) throws Exception {
-        if (prod.getEstoque() < quant) {
+        if (prod.getEstoque() - prod.getNoCarrinho() < quant) {
             throw new EstoqueInsuficienteException();
         } else {
             ItemVenda item = new ItemVenda(LocalDate.now(), prod, quant);
+            prod.adicionarQuantidadeNoCarrinho(quant);
+            System.out.println("No carrinho: " + prod.getNoCarrinho() + ". Em estoque : " + prod.getEstoque());
             this.itens.add(item);
         }
     }
@@ -46,6 +48,7 @@ public class Carrinho {
         while (it.hasNext()) {
             ItemVenda i = it.next();
             if (i.getProduto() == prod) {
+                prod.retirarQuantidadeDoCarrinho(i.getQuantidade());
                 it.remove();
                 break;
             }

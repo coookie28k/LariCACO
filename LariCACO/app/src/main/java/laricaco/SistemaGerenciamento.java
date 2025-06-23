@@ -118,6 +118,7 @@ public class SistemaGerenciamento {
             this.saldo += preco * this.taxa;
             vendedor.adicionarSaldo(preco * (1 - this.taxa));
 
+            i.getProduto().retirarQuantidadeDoCarrinho(i.getQuantidade());
             i.getProduto().retirarEstoque(i.getQuantidade());
 
             this.vendas.add(i);
