@@ -36,14 +36,24 @@ import laricaco.Vendedor;
  */
 public class MeusProdutosController {
 
-    /* ------------ FXML ------------ */
+    /**
+     * Pane que contém dinamicamente os cards dos produtos.
+     * Populado com os produtos do vendedor logado.
+     */
     @FXML
     private FlowPane produtosPane;
 
-    /* ------------ Estado ------------ */
+    /**
+     * Referência ao {@link Vendedor} atualmente logado.
+     * Obtido durante a inicialização do controller.
+     */
     private Vendedor vendedorLogado;
 
-    /* ------------ Inicialização ------------ */
+    /**
+     * Inicializa o controller ao carregar a tela.
+     * Verifica se o usuário logado é um vendedor. Caso contrário, exibe um alerta e interrompe.
+     * Se for, armazena a referência e exibe seus produtos.
+     */
     @FXML
     private void initialize() {
         if (!(App.sistema.getLogado() instanceof Vendedor vendedor)) {
@@ -54,28 +64,14 @@ public class MeusProdutosController {
         exibirProdutos(vendedor.getMeusProdutos());
     }
 
-    /*
-     * Solicita a senha ao usuário e tenta convertê‑lo em Vendedor.
-     * 
-     * private void tentarVirarVendedor() {
-     * TextInputDialog dialog = new TextInputDialog();
-     * dialog.setTitle("Tornar‑se Vendedor");
-     * dialog.setHeaderText("Para gerenciar produtos é necessário ser vendedor.");
-     * dialog.setContentText("Confirme sua senha:");
-     * 
-     * dialog.showAndWait().ifPresent(senha -> {
-     * Vendedor v = App.caco.virarVendedor(usuarioLogado, senha);
-     * if (v != null) {
-     * usuarioLogado = v;
-     * App.sistema.setLogado(v); // mantém sessão consistente
-     * } else {
-     * mostrarAlerta("Senha incorreta. Não foi possível tornar‑se vendedor.");
-     * }
-     * });
-     * }
+    /**
+     * Exibe os produtos fornecidos no painel visual da interface.
+     * <p>
+     * Os produtos são ordenados alfabeticamente (case-insensitive) e transformados em componentes visuais.
+     * </p>
+     *
+     * @param lista Lista de produtos a serem exibidos
      */
-
-    /* ------------ Exibição ------------ */
     private void exibirProdutos(List<Produto> lista) {
         produtosPane.getChildren().clear();
 
@@ -85,7 +81,13 @@ public class MeusProdutosController {
                 .forEach(produtosPane.getChildren()::add);
     }
 
-    /* Cria um card com Nome, Estoque e botão Editar */
+    /**
+     * Cria visualmente um "card" representando um produto.
+     * O card contém o nome do produto, a quantidade em estoque e um botão para edição.
+     *
+     * @param p Produto a ser representado
+     * @return Componente visual do tipo {@link Node} representando o produto
+     */
     private Node criarCardProduto(Produto p) {
         VBox card = new VBox(6);
         card.setPrefWidth(160);
@@ -106,8 +108,21 @@ public class MeusProdutosController {
         return card;
     }
 
-    /* ------------ Popup de edição ------------ */
-    /** Abre um diálogo para editar TODOS os atributos do produto. */
+    /**
+     * Abre um diálogo para editar todos os atributos de um {@link Produto}.
+     * <p>
+     * O diálogo permite alterar nome, preço, descrição, estoque, tags e dados específicos como:
+     * <ul>
+     *     <li><b>Tamanho</b>, caso o produto seja do tipo {@code Adesivo}</li>
+     *     <li><b>Promoção</b>: unidades e preço promocional</li>
+     * </ul>
+     * Também há opções para confirmar as alterações ou remover o produto, com validações apropriadas.
+     * <p>
+     * A remoção só é permitida se o estoque estiver zerado. Em caso contrário, o usuário é notificado.
+     * </p>
+     *
+     * @param p Produto a ser editado
+     */
     private void abrirPopupEdicao(Produto p) {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Editar Produto");
@@ -301,12 +316,26 @@ public class MeusProdutosController {
         });
     }
 
-    /* ------------ Botões ------------ */
+    /**
+     * Manipula o clique no botão "Voltar", retornando para a tela anterior.
+     * Tenta trocar para a tela "Vender.fxml". Se houver falha, exibe uma mensagem de erro.
+     */
     @FXML
     private void onVoltar() {
         trocarTela("Vender", "Não foi possível voltar.");
     }
 
+    /**
+     * Manipula o clique no botão "Adicionar Produto", abrindo um diálogo para cadastro.
+     * <p>
+     * O usuário escolhe o tipo de produto (Doce, Salgado ou Adesivo) e preenche os dados necessários:
+     * nome, preço, descrição, estoque, tamanho (se aplicável) e tags.
+     * <p>
+     * Caso os campos sejam válidos, o produto é cadastrado no sistema, associado ao vendedor logado
+     * e exibido na tela.
+     * <p>
+     * Em caso de erro de validação ou exceção durante o cadastro, uma mensagem é exibida ao usuário.
+     */
     @FXML
     private void onAdicionarProduto() {
 
@@ -430,7 +459,12 @@ public class MeusProdutosController {
         });
     }
 
-    /* ------------ Utilidades ------------ */
+    /**
+     * Tenta trocar a interface atual para a tela informada.
+     *
+     * @param fxml    nome do arquivo FXML da nova tela (sem extensão)
+     * @param erroMsg mensagem exibida ao usuário em caso de erro ao trocar de tela
+     */
     private void trocarTela(String fxml, String erroMsg) {
         try {
             App.sistema.mostrarTela(fxml);
@@ -440,6 +474,11 @@ public class MeusProdutosController {
         }
     }
 
+    /**
+     * Exibe uma caixa de diálogo de informação.
+     * 
+     * @param msg Mensagem a ser exibida
+     */
     private void mostrarAlerta(String msg) {
         Alert a = new Alert(Alert.AlertType.INFORMATION);
         a.setTitle("Informação");

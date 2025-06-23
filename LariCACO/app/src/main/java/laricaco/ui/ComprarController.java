@@ -29,24 +29,39 @@ import laricaco.Produto;
 import laricaco.Tag;
 import laricaco.Usuario;
 
+/**
+ * Controller da tela de compras, responsável por exibir produtos disponíveis,
+ * aplicar filtros por tipo ou tag, e permitir a adição de produtos ao carrinho.
+ * <p>
+ * A interface permite ajustar a quantidade de produtos antes de adicioná-los,
+ * consultar o saldo atual e navegar para o carrinho ou menu principal.
+ */
 public class ComprarController {
 
-    /* --------------------------- FXML --------------------------- */
-    @FXML
-    private Label saldoLabel;
-    @FXML
-    private ComboBox<String> filtroTipoCombo; // NOVO
-    @FXML
-    private ComboBox<String> filtroValorCombo; // NOVO
-    @FXML
-    private FlowPane produtosPane;
+    /** Label que exibe o saldo atual do usuário logado. */
+    @FXML private Label saldoLabel;
 
-    /* -------------------- dados e caches ------------------------ */
+    /** ComboBox para selecionar o tipo de filtro (por Tipo ou Tag). */
+    @FXML private ComboBox<String> filtroTipoCombo;
+
+    /** ComboBox para selecionar o valor do filtro (tipos ou tags). */
+    @FXML private ComboBox<String> filtroValorCombo;
+
+    /** Painel onde os produtos são exibidos dinamicamente. */
+    @FXML private FlowPane produtosPane;
+
+    /** Lista original de produtos disponíveis no sistema. */
     private List<Produto> listaOriginal;
+
+    /** Mapeamento de nomes de tipos para filtros correspondentes. */
     private final Map<String, Filtro<Produto>> filtrosTipoMap = new HashMap<>();
+
+    /** Mapeamento de nomes de tags para filtros correspondentes. */
     private final Map<String, Filtro<Produto>> filtrosTagMap = new HashMap<>();
 
-    /* ----------------------- init ------------------------------- */
+    /**
+     * Inicializa a tela de compras. Carrega produtos, configura filtros e exibe os itens.
+     */
     @FXML
     private void initialize() {
         listaOriginal = App.caco.getProdutos().stream()
@@ -61,14 +76,19 @@ public class ComprarController {
         exibirProdutos(listaOriginal); // tudo à primeira vista
     }
 
-    /* ---- saldo ---- */
+    /**
+     * Configura a exibição do saldo atual do usuário.
+     */
     private void configurarSaldo() {
         Usuario logado = App.sistema.getLogado();
         saldoLabel.setText(String.format("R$ %.2f",
                 logado != null ? logado.getSaldo() : 0.0));
     }
 
-    /* ---- prepara mapas de filtros ---- */
+    /**
+     * Prepara os filtros disponíveis com base nos produtos carregados.
+     * Cria filtros por tipo (classe) e por tag.
+     */
     private void prepararFiltrosDisponiveis() {
         /* ---------- por TIPO (classe concreta) ---------- */
         Set<Class<? extends Produto>> tipos = listaOriginal.stream()
@@ -90,7 +110,10 @@ public class ComprarController {
                 t, new ProdutoPorTagFiltro(t)));
     }
 
-    /* ---- ComboBox 1 (Tipo do filtro) ---- */
+    /**
+     * Configura a ComboBox de tipo de filtro.
+     * Quando alterado, atualiza as opções disponíveis na segunda ComboBox.
+     */
     private void configurarComboTipo() {
         filtroTipoCombo.setItems(FXCollections.observableArrayList(
                 "Todos", "Tipo", "Tag"));
@@ -112,13 +135,18 @@ public class ComprarController {
         });
     }
 
-    /* ---- ComboBox 2 (Valor do filtro) ---- */
+    /**
+     * Configura a ComboBox de valor do filtro.
+     * Aplica o filtro sempre que o valor selecionado mudar.
+     */
     private void configurarComboValor() {
         // Aplica o filtro sempre que a 2ª combo mudar
         filtroValorCombo.valueProperty().addListener((o, oldVal, newVal) -> aplicarFiltro());
     }
 
-    /* ---- Aplica filtro conforme ambos combos ---- */
+    /**
+     * Aplica o filtro selecionado nos dois ComboBoxes e atualiza a exibição dos produtos.
+     */
     private void aplicarFiltro() {
         String tipoSelecionado = filtroTipoCombo.getValue();
         String valorSelecionado = filtroValorCombo.getValue();
@@ -137,7 +165,12 @@ public class ComprarController {
         exibirProdutos(filtro.meetFilter(listaOriginal));
     }
 
-    /* ---- render de produtos ---- */
+    /**
+     * Exibe a lista de produtos no painel gráfico.
+     * Os produtos são ordenados alfabeticamente pelo nome.
+     *
+     * @param lista a lista de produtos a ser exibida
+     */
     private void exibirProdutos(List<Produto> lista) {
         produtosPane.getChildren().clear();
         lista.stream()
@@ -146,6 +179,12 @@ public class ComprarController {
                 .forEach(produtosPane.getChildren()::add);
     }
 
+    /**
+     * Cria visualmente o card de um produto com nome, preço, tags, quantidade e botão de adicionar.
+     *
+     * @param p o produto a ser representado graficamente
+     * @return o nó JavaFX representando o card
+     */
     private Node criarCardProduto(Produto p) {
         VBox card = new VBox(5);
         card.setStyle("""
@@ -220,6 +259,12 @@ public class ComprarController {
         return card;
     }
 
+    /**
+     * Tenta adicionar um produto ao carrinho na quantidade especificada.
+     *
+     * @param p o produto a ser adicionado
+     * @param quantidade a quantidade desejada
+     */
     private void adicionarAoCarrinho(Produto p, int quantidade) {
         try {
             App.sistema.getLogado().adicionarNoCarrinho(p, quantidade);
@@ -232,12 +277,18 @@ public class ComprarController {
         }
     }
 
-    /* ---- navegação ---- */
+        /**
+     * Método acionado ao clicar no botão "Voltar".
+     * Desloga o usuário atual e retorna para a tela do menu do usuário.
+     */
     @FXML
     private void onVoltar() {
         trocarTela("MenuUsuario", "Não foi possível voltar ao menu.");
     }
 
+    /**
+     * Vai para a tela do carrinho de compras.
+     */
     @FXML
     private void onCarrinho() {
         try {
@@ -248,6 +299,12 @@ public class ComprarController {
         }
     }
 
+    /**
+     * Tenta trocar a tela para o arquivo FXML especificado, mostrando erro caso falhe.
+     *
+     * @param fxml nome da tela FXML
+     * @param erroMsg mensagem de erro a ser mostrada caso falhe
+     */
     private void trocarTela(String fxml, String erroMsg) {
         try {
             App.sistema.mostrarTela(fxml);
@@ -257,15 +314,32 @@ public class ComprarController {
         }
     }
 
-    /* ---- diálogos ---- */
+    /**
+     * Exibe uma caixa de diálogo de informação com título e mensagem passados.
+     * 
+     * @param t Título da janela de alerta
+     * @param m Mensagem a ser exibida
+     */
     private void mostrarAlerta(String t, String m) {
         alert(Alert.AlertType.INFORMATION, t, m);
     }
 
+    /**
+     * Exibe uma caixa de diálogo de erro com a mensagem informada.
+     * 
+     * @param m Mensagem de erro a ser exibida
+     */
     private void mostrarErro(String m) {
         alert(Alert.AlertType.ERROR, "Erro", m);
     }
 
+    /**
+     * Exibe uma caixa de diálogo genérica.
+     *
+     * @param tipo o tipo do alerta (informação, erro, etc.)
+     * @param titulo título da janela
+     * @param msg mensagem a ser exibida
+     */
     private void alert(Alert.AlertType tipo, String titulo, String msg) {
         Alert a = new Alert(tipo);
         a.setTitle(titulo);

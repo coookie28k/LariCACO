@@ -9,21 +9,42 @@ import javafx.scene.layout.StackPane;
 import laricaco.App;
 import laricaco.Carrinho;
 
+/**
+ * Controller responsável pela tela de pagamento.
+ * <p>
+ * Exibe o subtotal do carrinho do usuário logado e permite a confirmação do pagamento,
+ * realizando a venda dos itens presentes no carrinho.
+ * <p>
+ * Após a confirmação do pagamento, desloga o usuário e retorna para a tela inicial.
+ */
 public class PagamentoController {
 
+    /** Label que exibe o subtotal do carrinho. */
     @FXML
     private Label subtotalLabel;
+
+    /** Elemento gráfico para efeito visual ao clicar no pagamento (não usado diretamente). */
     @FXML
     private StackPane quadradoPagar; // (não é usado diretamente, mas pode receber effects se quiser)
 
-    /* ---------- Inicialização ---------- */
+    /**
+     * Método chamado na inicialização do controller.
+     * Atualiza o label do subtotal com o valor total do carrinho do usuário logado.
+     */
     @FXML
     private void initialize() {
         Carrinho carrinho = App.sistema.getLogado().getCarrinho();
         subtotalLabel.setText(String.format("R$ %.2f", carrinho.calcularTotal()));
     }
 
-    /* ---------- Clique no quadrado ---------- */
+    /**
+     * Ação executada ao clicar no botão ou área de pagamento.
+     * <p>
+     * Verifica se o carrinho está vazio e, caso contrário, realiza a venda.
+     * Após o pagamento, desloga o usuário e retorna para a tela inicial.
+     *
+     * @throws Exception caso haja erro ao realizar a venda
+     */
     @FXML
     private void onPagar() throws Exception {
         Carrinho carrinho = App.sistema.getLogado().getCarrinho();
@@ -36,6 +57,7 @@ public class PagamentoController {
 
         mostrarAlerta("Pagamento realizado com sucesso!");
 
+        //Desliga o usuario
         App.sistema.setLogado(null);
         try {
             App.sistema.mostrarTela("TelaInicial");
@@ -45,7 +67,10 @@ public class PagamentoController {
 
     }
 
-    /* ---------- Botão Cancelar ---------- */
+    /**
+     * Ação executada ao clicar no botão cancelar.
+     * Retorna para a tela do carrinho.
+     */
     @FXML
     private void onCancelar() {
         try {
@@ -55,7 +80,11 @@ public class PagamentoController {
         }
     }
 
-    /* ---------- Utilitários ---------- */
+    /**
+     * Exibe uma caixa de diálogo com a mensagem passada.
+     * 
+     * @param mensagem Mensagem a ser exibida
+     */
     private void mostrarAlerta(String msg) {
         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
         alerta.setTitle("Pagamento");
@@ -64,11 +93,16 @@ public class PagamentoController {
         alerta.showAndWait();
     }
 
-    private void mostrarErro(String msg) {
+    /**
+     * Exibe uma caixa de diálogo de erro com a mensagem informada.
+     * 
+     * @param mensagem Mensagem de erro a ser exibida
+     */
+    private void mostrarErro(String mensagem) {
         Alert a = new Alert(Alert.AlertType.ERROR);
         a.setTitle("Erro");
         a.setHeaderText(null);
-        a.setContentText(msg);
+        a.setContentText(mensagem);
         a.showAndWait();
     }
 }

@@ -11,17 +11,35 @@ import javafx.scene.control.TextField;
 import laricaco.App;
 import laricaco.Usuario;
 
+/**
+ * Controlador da tela inicial do sistema Laricaco.
+ * <p>
+ * Essa classe gerencia a interface de login e cadastro inicial,
+ * lidando com a entrada do usuário, validação de login,
+ * redirecionamento para outras telas e exibição de mensagens.
+ */
 public class TelaInicialController {
 
+    
+    /** Campo de texto para o login do usuário. */
     @FXML
     private TextField loginField;
 
+    /** Campo de senha para o usuário inserir sua senha. */
     @FXML
     private PasswordField senhaField;
 
+    /** Label para exibir mensagens de erro ou informação na tela. */
     @FXML
     private Label mensagemLabel;
 
+    
+    /**
+     * Método acionado ao clicar no botão "Continuar".
+     * Realiza a validação dos campos e autenticação do usuário.
+     * Se o login for válido, direciona para a tela do menu do usuário,
+     * caso contrário, exibe mensagem de erro.
+     */
     @FXML
     private void onContinuar() {
         String login = loginField.getText();
@@ -59,6 +77,11 @@ public class TelaInicialController {
         }
     }
 
+    /**
+     * Método acionado ao clicar no botão "Cadastrar".
+     * Exibe um alerta informando sobre o redirecionamento
+     * e muda para a tela de cadastro de novo usuário.
+     */
     @FXML
     private void onCadastrar() {
         mostrarAlerta("Cadastro", "Redirecionando para a tela de cadastro...");
@@ -71,6 +94,12 @@ public class TelaInicialController {
             }
     }
 
+    /**
+     * Exibe uma caixa de diálogo de informação com título e mensagem passados.
+     * 
+     * @param titulo Título da janela de alerta
+     * @param mensagem Mensagem a ser exibida
+     */
     private void mostrarAlerta(String titulo, String mensagem) {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle(titulo);
@@ -80,7 +109,9 @@ public class TelaInicialController {
     }
 
     /**
-     * Método auxiliar para exibir alertas de erro.
+     * Exibe uma caixa de diálogo de erro com a mensagem informada.
+     * 
+     * @param mensagem Mensagem de erro a ser exibida
      */
     private void mostrarErro(String mensagem) {
         Alert alert = new Alert(Alert.AlertType.ERROR);

@@ -19,17 +19,41 @@ import laricaco.ItemVenda;
 import laricaco.Produto;
 import laricaco.Vendedor;
 
+/**
+ * Controller responsável pela tela "Minhas Vendas".
+ * <p>
+ * Permite ao vendedor logado visualizar suas vendas dentro de um período definido.
+ * As vendas são filtradas por data e agrupadas por produto, exibindo informações como
+ * quantidade vendida, preço unitário e total arrecadado por produto.
+ * Também exibe o faturamento total no período.
+ */
 public class MinhasVendasController {
 
+    /** Botão para voltar à tela anterior. */
     @FXML private Button voltarButton;
+
+    /** Seletor de data de início do filtro de vendas. */
     @FXML private DatePicker dataInicioPicker;
+
+    /** Seletor de data de fim do filtro de vendas. */
     @FXML private DatePicker dataFimPicker;
+
+    /** Container onde os cards de vendas serão exibidos. */
     @FXML private VBox vendasContainer;
+
+    /** Label que exibe o valor total das vendas no período. */
     @FXML private Label faturamentoLabel;
+
+    /** Label que exibe o título da tela. */
     @FXML private Label tituloLabel;
 
+    /** Vendedor atualmente logado no sistema. */
     private Vendedor vendedorLogado;
 
+    /**
+     * Inicializa a tela de vendas. Define as datas padrão,
+     * carrega as vendas e configura o comportamento dos filtros.
+     */
     @FXML
     public void initialize() {
         // Garantir que usuário é vendedor
@@ -54,6 +78,9 @@ public class MinhasVendasController {
         atualizarLista();
     }
 
+    /**
+     * Retorna para a tela anterior (tela "Vender").
+     */
     @FXML
     private void onVoltar() {
         try {
@@ -64,11 +91,17 @@ public class MinhasVendasController {
         }
     }
 
+    /**
+     * Atualiza a lista de vendas com base nas datas selecionadas.
+     */
     @FXML
     private void onFiltrar() {
         atualizarLista();
     }
 
+    /**
+     * Atualiza dinamicamente a exibição das vendas filtradas.
+     */
     private void atualizarLista() {
         vendasContainer.getChildren().clear();
 
@@ -119,7 +152,11 @@ public class MinhasVendasController {
         faturamentoLabel.setText(String.format("R$ %.2f", totalPeriodo));
     }
 
-    /* ---------- Alertas ---------- */
+    /**
+     * Exibe uma caixa de diálogo de erro com a mensagem informada.
+     * 
+     * @param mensagem Mensagem de erro a ser exibida
+     */
     private void mostrarErro(String mensagem) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Erro");
@@ -128,11 +165,15 @@ public class MinhasVendasController {
         alert.showAndWait();
     }
 
-    private void mostrarAlerta(String msg) {
+    /** Exibe uma caixa de diálogo de informação.
+     * 
+     * @param mensagem Mensagem a ser exibida
+     */
+    private void mostrarAlerta(String mensagem) {
         Alert a = new Alert(Alert.AlertType.INFORMATION);
         a.setTitle("Informação");
         a.setHeaderText(null);
-        a.setContentText(msg);
+        a.setContentText(mensagem);
         a.showAndWait();
     }
 }

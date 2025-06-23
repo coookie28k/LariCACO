@@ -15,16 +15,32 @@ import laricaco.App;
 import laricaco.Carrinho;
 import laricaco.ItemVenda;
 
+/**
+ * Controller responsável pela tela de visualização do carrinho de compras.
+ * <p>
+ * Permite ao usuário visualizar os itens adicionados ao carrinho, ver o subtotal,
+ * remover produtos e seguir para a etapa de pagamento. Também permite voltar ao menu principal.
+ */
 public class CarrinhoController {
 
+    /** Container onde os itens do carrinho são exibidos dinamicamente. */
     @FXML private VBox itensBox;
+
+    /** Label que exibe o subtotal atual do carrinho. */
     @FXML private Label subtotalLabel;
 
+    /**
+     * Inicializa a tela do carrinho e atualiza a lista de itens exibidos.
+     */
     @FXML
     private void initialize() {
         atualizarLista();
     }
 
+    /**
+     * Atualiza a exibição dos itens no carrinho e o subtotal.
+     * Remove elementos antigos e reconstrói visualmente a lista com botões de remoção.
+     */
     private void atualizarLista() {
         itensBox.getChildren().clear();
 
@@ -79,6 +95,10 @@ public class CarrinhoController {
         subtotalLabel.setText(String.format("R$ %.2f", carrinho.calcularTotal()));
     }
 
+    /**
+     * Manipula o evento de clique no botão "Voltar".
+     * Redireciona o usuário para o menu principal.
+     */
     @FXML
     private void onVoltar() {
         try {
@@ -88,6 +108,10 @@ public class CarrinhoController {
         }
     }
 
+    /**
+     * Manipula o evento de clique no botão "Continuar Compra".
+     * Se o carrinho estiver vazio, mostra um alerta. Caso contrário, abre a tela de pagamento.
+     */
     @FXML
     private void onContinuarCompra() {
         Carrinho carrinho = App.sistema.getLogado().getCarrinho();
@@ -104,20 +128,29 @@ public class CarrinhoController {
     }
 
 
-    private void mostrarAlerta(String msg) {
+    /**
+     * Exibe uma caixa de diálogo de informação.
+     * 
+     * @param mensagem Mensagem a ser exibida
+     */
+    private void mostrarAlerta(String mensagem) {
         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
         alerta.setTitle("Alerta");
         alerta.setHeaderText(null);
-        alerta.setContentText(msg);
+        alerta.setContentText(mensagem);
         alerta.showAndWait();
     }
 
-
-    private void mostrarErro(String msg) {
+    /**
+     * Exibe uma caixa de diálogo de erro com a mensagem informada.
+     * 
+     * @param mensagem Mensagem de erro a ser exibida
+     */
+    private void mostrarErro(String mensagem) {
         Alert a = new Alert(Alert.AlertType.ERROR);
         a.setTitle("Erro");
         a.setHeaderText(null);
-        a.setContentText(msg);
+        a.setContentText(mensagem);
         a.showAndWait();
     }
 }

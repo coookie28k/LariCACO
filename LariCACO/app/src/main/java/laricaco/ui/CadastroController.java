@@ -12,21 +12,45 @@ import javafx.scene.control.TextField;
 import laricaco.App;
 import laricaco.Usuario;
 
+/**
+ * Controller responsável pela tela de cadastro de novos usuários.
+ * <p>
+ * Permite que o usuário informe login, senha e saldo inicial para criar uma nova conta.
+ * Realiza validações de campos obrigatórios, verifica se o login já existe e converte o saldo informado.
+ * <p>
+ * Após o cadastro bem-sucedido, exibe mensagem de confirmação e retorna para a tela inicial (login).
+ */
 public class CadastroController {
 
+    /** 
+     * Campo de texto onde o usuário digita seu login. 
+     */
     @FXML
     private TextField loginField;
 
+    /** 
+     * Campo de senha onde o usuário digita sua senha. 
+     */
     @FXML
     private PasswordField senhaField;
 
+    
+    /** 
+     * Campo de texto onde o usuário informa o saldo inicial. 
+     */
     @FXML
     private TextField saldoField;
 
+    /** 
+     * Rótulo usado para exibir mensagens de erro ou confirmação na tela de cadastro. 
+     */
     @FXML
     private Label mensagemLabel;
 
-    /* ---------- Botão Voltar ---------- */
+    /**
+     * Método acionado ao clicar no botão "Voltar".
+     * Retorna para a tela inicial.
+     */
     @FXML
     private void onVoltar() {
         try {
@@ -37,7 +61,11 @@ public class CadastroController {
         }
     }
 
-    /* ---------- Botão Continuar ---------- */
+    /**
+     * Evento chamado ao clicar no botão "Continuar".
+     * Valida os dados do formulário, cria novo usuário caso os dados estejam corretos
+     * e exibe mensagens de erro ou sucesso correspondentes.
+     */
     @FXML
     private void onContinuar() {
         String login = loginField.getText().trim();
@@ -85,7 +113,12 @@ public class CadastroController {
        
     }
 
-    /* ---------- Métodos auxiliares ---------- */
+    /**
+     * Exibe uma caixa de diálogo de informação com título e mensagem passados.
+     * 
+     * @param titulo Título da janela de alerta
+     * @param mensagem Mensagem a ser exibida
+     */
     private void mostrarAlerta(String titulo, String mensagem) {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle(titulo);
@@ -94,6 +127,11 @@ public class CadastroController {
         alert.showAndWait();
     }
 
+    /**
+     * Exibe uma caixa de diálogo de erro com a mensagem informada.
+     * 
+     * @param mensagem Mensagem de erro a ser exibida
+     */
     private void mostrarErro(String mensagem) {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Erro");
@@ -101,4 +139,9 @@ public class CadastroController {
         alert.setContentText(mensagem);
         alert.showAndWait();
     }
+
+    
+
+    
+
 }

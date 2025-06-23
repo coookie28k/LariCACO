@@ -8,6 +8,7 @@
     /**
      * Classe principal da aplicação Laricaco.
      * Extende Application para iniciar a interface gráfica JavaFX.
+     * Foi utilizado IA nesse projeto para tirar dúvidas sobre classes, sobre Java, para auxiliar no javadoc e para auxiliar na composição das telas e controllers.
      */
     public class App extends Application {
 

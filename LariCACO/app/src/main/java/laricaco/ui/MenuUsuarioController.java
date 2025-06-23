@@ -7,8 +7,19 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import laricaco.App;
 
+/**
+ * Controlador da tela de menu do usuário.
+ * 
+ * Essa classe gerencia as ações do menu principal após o login,
+ * permitindo navegar entre telas de compra, venda, dados do usuário,
+ * além de realizar logout e voltar para a tela inicial.
+ */
 public class MenuUsuarioController {
 
+    /**
+     * Método acionado ao clicar no botão "Voltar".
+     * Desloga o usuário atual e retorna para a tela inicial.
+     */
     @FXML
     private void onVoltar() {
         // Desliga o usuario
@@ -21,6 +32,10 @@ public class MenuUsuarioController {
         }
     }
 
+    /**
+     * Método acionado ao clicar no botão "Comprar".
+     * Navega para a tela de compra de produtos.
+     */
     @FXML
     private void onComprar() {
         try {
@@ -32,6 +47,10 @@ public class MenuUsuarioController {
 
     }
 
+    /**
+     * Método acionado ao clicar no botão "Vender".
+     * Navega para a tela de venda de produtos.
+     */
     @FXML
     private void onVender() {
         try {
@@ -42,6 +61,10 @@ public class MenuUsuarioController {
         }
     }
 
+    /**
+     * Método acionado ao clicar no botão "Meus Dados".
+     * Navega para a tela que exibe os dados do usuário logado.
+     */
     @FXML
     private void onMeusDados() {
         try {
@@ -52,6 +75,11 @@ public class MenuUsuarioController {
         }
     }
 
+    /**
+     * Método acionado ao clicar no botão "Deslogar".
+     * Desloga o usuário atual e retorna para a tela inicial,
+     * exibindo uma mensagem de confirmação.
+     */
     @FXML
     private void onDeslogar() {
         // Desliga o usuario
@@ -65,6 +93,12 @@ public class MenuUsuarioController {
         }
     }
 
+    /**
+     * Exibe uma caixa de diálogo de informação com título e mensagem passados.
+     * 
+     * @param titulo   Título da janela de alerta
+     * @param mensagem Mensagem a ser exibida
+     */
     private void mostrarAlerta(String titulo, String mensagem) {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle(titulo);
@@ -73,6 +107,11 @@ public class MenuUsuarioController {
         alert.showAndWait();
     }
 
+    /**
+     * Exibe uma caixa de diálogo de erro com a mensagem informada.
+     * 
+     * @param mensagem Mensagem de erro a ser exibida
+     */
     private void mostrarErro(String mensagem) {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Erro");

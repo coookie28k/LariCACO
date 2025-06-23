@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"laricaco"},{"l":"laricaco.Exceptions"},{"l":"laricaco.Filtros"},{"l":"laricaco.ui"}];updateSearchResults();

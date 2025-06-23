@@ -21,25 +21,42 @@ import laricaco.Vendedor;
  */
 public class VenderController {
 
-    /* ---------- Botão Voltar ---------- */
+    /**
+     * Método acionado ao clicar no botão "Voltar".
+     * Retornar para a tela do menu do usuário.
+     * 
+     * @throws IOException se ocorrer erro ao mudar a tela
+     */
     @FXML
     private void onVoltar() {
         trocarTela("MenuUsuario", "Não foi possível voltar ao menu.");
     }
 
-    /* ---------- Botão Meus Produtos ---------- */
+    /**
+     * Ação associada ao botão "Meus Produtos".
+     * Garante que o usuário seja vendedor antes de abrir a tela correspondente.
+     */
     @FXML
     private void onMeusProdutos() {
         garantirVendedorEExecutar(() -> trocarTela("MeusProdutos", "Não foi possível abrir Meus Produtos."));
     }
 
-    /* ---------- Botão Minhas Vendas ---------- */
+    /**
+     * Ação associada ao botão "Minhas Vendas".
+     * Garante que o usuário seja vendedor antes de abrir a tela correspondente.
+     */
     @FXML
     private void onMinhasVendas() {
         garantirVendedorEExecutar(() -> trocarTela("MinhasVendas", "Não foi possível abrir Minhas Vendas."));
     }
 
-    /* ---------- Lógica: garantir que o usuário seja vendedor ---------- */
+    /**
+     * Método auxiliar que verifica se o usuário logado é vendedor.
+     * Caso não seja, solicita a senha para tentar converter o usuário em vendedor.
+     * Se a conversão for bem-sucedida, executa a ação passada como parâmetro.
+     *
+     * @param acao ação a ser executada caso o usuário seja (ou se torne) vendedor
+     */
     private void garantirVendedorEExecutar(Runnable acao) {
         Usuario usuarioLogado = App.sistema.getLogado();
 
@@ -65,7 +82,12 @@ public class VenderController {
         });
     }
 
-    /* ---------- Utilitário de troca de tela ---------- */
+    /**
+     * Método utilitário para troca de telas.
+     *
+     * @param fxml     nome do arquivo FXML da tela a ser aberta
+     * @param erroMsg  mensagem de erro a ser exibida caso a troca falhe
+     */
     private void trocarTela(String fxml, String erroMsg) {
         try {
             App.sistema.mostrarTela(fxml);
@@ -75,12 +97,16 @@ public class VenderController {
         }
     }
 
-    /* ---------- Alerta de erro ---------- */
-    private void mostrarErro(String msg) {
+    /**
+     * Exibe uma caixa de diálogo de erro com a mensagem informada.
+     * 
+     * @param mensagem Mensagem de erro a ser exibida
+     */
+    private void mostrarErro(String mensagem) {
         Alert a = new Alert(Alert.AlertType.ERROR);
         a.setTitle("Erro");
         a.setHeaderText(null);
-        a.setContentText(msg);
+        a.setContentText(mensagem);
         a.showAndWait();
     }
 }
