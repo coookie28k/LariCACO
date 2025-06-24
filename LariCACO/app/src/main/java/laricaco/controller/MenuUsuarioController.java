@@ -5,7 +5,7 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import laricaco.App;
+import laricaco.model.App;
 
 /**
  * Controlador da tela de menu do usuário.

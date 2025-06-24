@@ -9,9 +9,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import laricaco.App;
-import laricaco.Exceptions.LoginJaExistenteException;
-import laricaco.Usuario;
+import laricaco.model.App;
+import laricaco.model.Usuario;
+import laricaco.model.Exceptions.LoginJaExistenteException;
 
 /**
  * Controller responsável pela tela de cadastro de novos usuários.

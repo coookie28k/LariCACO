@@ -36,7 +36,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = 'laricaco.App'
+    mainClass = 'laricaco.model.App'
 }
 
 tasks.named('test') {

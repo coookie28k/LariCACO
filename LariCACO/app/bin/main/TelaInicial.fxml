@@ -10,7 +10,7 @@
 <?import javafx.geometry.Pos?>
 
 <BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="laricaco.ui.TelaInicialController">
+            fx:controller="laricaco.controller.TelaInicialController">
 
     <!-- Cabeçalho com o nome da aplicação -->
     <top>

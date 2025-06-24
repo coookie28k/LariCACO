@@ -6,8 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
-import laricaco.App;
-import laricaco.Usuario;
+import laricaco.model.App;
+import laricaco.model.Usuario;
 
 /**
  * Controlador da tela "Meus Dados".

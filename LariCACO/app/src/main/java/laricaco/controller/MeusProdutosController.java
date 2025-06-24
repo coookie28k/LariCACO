@@ -22,12 +22,12 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import laricaco.App;
-import laricaco.Exceptions.ProdutoNaoEncontradoException;
-import laricaco.Exceptions.QuantidadeInvalidaException;
-import laricaco.Produto;
-import laricaco.Tag;
-import laricaco.Vendedor;
+import laricaco.model.App;
+import laricaco.model.Produto;
+import laricaco.model.Tag;
+import laricaco.model.Vendedor;
+import laricaco.model.Exceptions.ProdutoNaoEncontradoException;
+import laricaco.model.Exceptions.QuantidadeInvalidaException;
 
 /**
  * Controller da tela “Meus Produtos”.
@@ -140,12 +140,12 @@ public class MeusProdutosController {
         // TAMANHO (só se for Adesivo)
         ComboBox<String> tamanhoCombo = new ComboBox<>();
         tamanhoCombo.getItems().addAll("Pequeno", "Médio", "Grande");
-        boolean ehAdesivo = p instanceof laricaco.Adesivo;
+        boolean ehAdesivo = p instanceof laricaco.model.Adesivo;
         tamanhoCombo.setVisible(ehAdesivo);
         tamanhoCombo.setManaged(ehAdesivo);
         if (ehAdesivo) {
             tamanhoCombo.getSelectionModel().select(
-                ((laricaco.Adesivo) p).getTamanho());
+                ((laricaco.model.Adesivo) p).getTamanho());
         }
 
         ListView<Tag> tagList = new ListView<>();
@@ -245,7 +245,7 @@ public class MeusProdutosController {
                     p.setEstoque(novoEstoque);
 
                     if (ehAdesivo) {
-                        ((laricaco.Adesivo) p).setTamanho( 
+                        ((laricaco.model.Adesivo) p).setTamanho( 
                             tamanhoCombo.getValue());    
                     }
 

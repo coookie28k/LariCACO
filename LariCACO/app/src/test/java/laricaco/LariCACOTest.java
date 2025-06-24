@@ -1,7 +1,16 @@
 package laricaco;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
+
+import laricaco.model.Doce;
+import laricaco.model.Salgado;
+import laricaco.model.SistemaGerenciamento;
+import laricaco.model.Usuario;
+import laricaco.model.Vendedor;
 
 /**
  * Testes unitários para o sistema de gerenciamento Laricaco.
@@ -88,6 +97,7 @@ public class LariCACOTest {
      */
     @Test
     public void filtroPorTag() throws Exception {
+        caco.setProdutos(new ArrayList<>());
         vend = caco.criarUsuario("vend5", "senha456", 100);
         vendedor = caco.virarVendedor(vend, "senha456");
 
@@ -109,6 +119,7 @@ public class LariCACOTest {
      */
     @Test
     public void filtroPorTipo() throws Exception {
+        caco.setProdutos(new ArrayList<>());
         vend = caco.criarUsuario("vend@6", "senha456", 100);
         vendedor = caco.virarVendedor(vend, "senha456");
 

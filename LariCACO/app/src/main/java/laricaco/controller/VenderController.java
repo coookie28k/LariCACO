@@ -8,9 +8,9 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextInputDialog;
-import laricaco.App;
-import laricaco.Usuario;
-import laricaco.Vendedor;
+import laricaco.model.App;
+import laricaco.model.Usuario;
+import laricaco.model.Vendedor;
 
 /**
  * Controller da tela "Vender".

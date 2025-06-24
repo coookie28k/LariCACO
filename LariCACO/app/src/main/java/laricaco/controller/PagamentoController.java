@@ -6,9 +6,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
-import laricaco.App;
-import laricaco.Carrinho;
-import laricaco.Exceptions.SaldoInsuficienteException;
+import laricaco.model.App;
+import laricaco.model.Carrinho;
+import laricaco.model.Exceptions.SaldoInsuficienteException;
 
 /**
  * Controller responsável pela tela de pagamento.

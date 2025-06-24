@@ -20,14 +20,14 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import laricaco.App;
-import laricaco.Exceptions.EstoqueInsuficienteException;
-import laricaco.Filtro;
-import laricaco.Filtros.ProdutoPorTagFiltro;
-import laricaco.Filtros.ProdutoPorTipoFiltro;
-import laricaco.Produto;
-import laricaco.Tag;
-import laricaco.Usuario;
+import laricaco.model.App;
+import laricaco.model.Filtro;
+import laricaco.model.Produto;
+import laricaco.model.Tag;
+import laricaco.model.Usuario;
+import laricaco.model.Exceptions.EstoqueInsuficienteException;
+import laricaco.model.Filtros.ProdutoPorTagFiltro;
+import laricaco.model.Filtros.ProdutoPorTipoFiltro;
 
 /**
  * Controller da tela de compras, responsável por exibir produtos disponíveis,

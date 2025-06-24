@@ -210,7 +210,7 @@ DEFAULT_JVM_OPTS=""
 
 set -- \
         -classpath "$CLASSPATH" \
-        laricaco.App \
+        laricaco.model.App \
         "$@"
 
 # Stop when "xargs" is not available.

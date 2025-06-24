@@ -11,9 +11,9 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import laricaco.App;
-import laricaco.Carrinho;
-import laricaco.ItemVenda;
+import laricaco.model.App;
+import laricaco.model.Carrinho;
+import laricaco.model.ItemVenda;
 
 /**
  * Controller responsável pela tela de visualização do carrinho de compras.

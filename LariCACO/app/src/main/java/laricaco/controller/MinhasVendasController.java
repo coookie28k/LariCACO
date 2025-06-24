@@ -13,11 +13,11 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import laricaco.App;
-import laricaco.Filtros.ItemVendaPorDataFiltro;
-import laricaco.ItemVenda;
-import laricaco.Produto;
-import laricaco.Vendedor;
+import laricaco.model.App;
+import laricaco.model.ItemVenda;
+import laricaco.model.Produto;
+import laricaco.model.Vendedor;
+import laricaco.model.Filtros.ItemVendaPorDataFiltro;
 
 /**
  * Controller responsável pela tela "Minhas Vendas".
