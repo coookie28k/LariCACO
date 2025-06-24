@@ -1,0 +1,200 @@
+@startuml
+' ==== CLASSES ====
+Class Adesivo {
+- tamanho: String
+
++ getTamanho(): String
++ setTamanho(tamanho: String): void
+}
+
+Class Carrinho {
+- itens: List<ItemVenda>
+- status: boolean
+
++ getItens(): List<ItemVenda>
++ setItens(itens: List<ItemVenda>): void
++ isStatus(): boolean
++ setStatus(status: boolean): void
++ adicionarItem(prod: Produto, quant: int): void
++ removerItem(prod: Produto): void
++ calcularTotal(): double
++ limpar(): void
+}
+
+Class Doce {
+}
+
+Interface Filtro {
++ meetFilter(lista: List<T>): List<T>
+}
+
+Class ItemVenda {
+- total: double
+- produto: Produto
+- quantidade: int
+- data: LocalDate
+- BR_FORMAT: DateTimeFormatter
+
++ getData(): LocalDate
++ getDataFormatada(): String
++ getTotal(): double
++ setTotal(total: double): void
++ getProduto(): Produto
++ setProduto(produto: Produto): void
++ getQuantidade(): int
++ setQuantidade(quantidade: int): void
+}
+
+Class Produto {
+- id: int
+- nome: String
+- preco: double
+- descricao: String
+- estoque: int
+- noCarrinho: int
+- vendedor: Vendedor
+- tagProduto: List<Tag>
+- promocao: Promocao
+
++ getId(): int
++ getTag(): List<Tag>
++ setTag(tags: List<Tag>): void
++ adicionarTag(tag: Tag): void
++ adicionarTag(descricao: String): void
++ removerTag(tag: Tag): void
++ removerTag(descricao: String): void
++ getPreco(): double
++ setPreco(preco: double): void
++ getNome(): String
++ setNome(nome: String): void
++ getDescricao(): String
++ setDescricao(descricao: String): void
++ getEstoque(): int
++ setEstoque(estoque: int): void
++ getVendedor(): Vendedor
++ setVendedor(vendedor: Vendedor): void
++ retirarEstoque(quantidade: int): void
++ adicionarEstoque(quantidade: int): void
++ getPromocao(): Promocao
++ setPromocao(promocaoPromocao): void
++ getNoCarrinho(): int
++ adicionarQuantidadeNoCarrinho(quant: int): void
++ retirarQuantidadeDoCarrinho(quant: int): void
+}
+
+Class Promocao {
+- unidades: int
+- preco: double
+
++ getUnidades(): int
++ setUnidades(unidades: int): void
++ getPreco(): double
++ setPreco(preco: double): void
+}
+
+Class Salgado {
+}
+
+Class SistemaGerenciamento {
+- taxa: double
+- saldo: double
+- produtos: List<Produto>
+- vendas: List<ItemVenda>
+- usuarios: List<Usuario>
+- contagemId: int
+- login: String
+- senha: String
+
++ getTaxa(): double
++ setTaxa(taxa: double): void
++ getSaldo(): double
++ setSaldo(saldo: double): void
++ getProdutos(): List<Produto>
++ setProdutos(produtos: List<Produto>): void
++ getVendas(): List<ItemVenda>
++ setVendas(vendas: List<ItemVenda>): void
++ getUsuarios(): List<Usuario>
++ setUsuarios(usuarios: List<Usuario>): void
++ getLogin(): String
++ setLogin(login: String): void
++ verificarSenha(senha: String): boolean
++ setSenha(senha: String): void
++ criarUsuario(login: String, senha: String, saldo: double): Usuario
++ realizarVenda(cliente: Usuario): void
++ cadastrarDoce(nome: String, preco: double, descricao: String, estoque: int, vendedor: Vendedor): Doce
++ cadastrarSalgado(nome: String, preco: double, descricao: String, estoque: int, vendedor: Vendedor): Salgado
++ cadastrarAdesivo(nome: String, preco: double, descricao: String, estoque: int, vendedor: Vendedor, tamanho: String): Adesivo
++ removerProduto(id: int): void
++ removerProduto(nome: String): void
++ virarVendedor(usuario: Usuario, senha: String): Vendedor
++ verificarLogin(login: String): int
++ filtrarPorTipo(tipo: Class<? extends Produto>): List<Produto>
++ filtrarPorTag(descricao: String): List<Produto>
++ filtrarPorData(inicio: LocalDate, fim: LocalDate): List<ItemVenda>
++ adicionarPromocao(p: Produto, unidades: int, preco: double): void
++ removerPromocao(p: Produto): void
+}
+
+Class Tag {
+- descricaoTag: String
+
++ getTag(): String
++ setTag(descricaoTagNova: String): void
+}
+
+Class Usuario {
+- login: String
+- senha: String
+- saldo: double
+- carrinho: Carrinho
+
++ getLogin(): String
++ setLogin(login: String): void
++ verificarSenha(senhaInput: String): boolean
++ setSenha(senha: String): void
++ getSaldo(): double
++ setSaldo(saldo: double): void
++ getCarrinho(): Carrinho
++ setCarrinho(carrinho: Carrinho): void
++ adicionarNoCarrinho(p: Produto, quant: int): void
++ adicionarSaldo(valor: double): void
++ retirarSaldo(valor: double): void
+}
+
+Class Vendedor {
+- minhasVendas: List<ItemVenda>
+- meusProdutos: List<Produto>
+
++ getMinhasVendas(): List<ItemVenda>
++ setMinhasVendas(minhasVendas: List<ItemVenda>): void
++ getMeusProdutos(): List<Produto>
++ setMeusProdutos(meusProdutos: List<Produto>): void
++ adicionarProduto(produto: Produto): void
++ removerProduto(produto: Produto): void
++ adicionarItemVenda(itemVenda: ItemVenda): void
+}
+
+' ==== RELACIONAMENTOS ====
+Produto  <|--  Doce
+Produto  <|--  Salgado
+Produto  <|--  Adesivo
+
+Usuario <|-- Vendedor
+
+Produto *-- Promocao
+Produto *--  Tag
+
+Carrinho *-- ItemVenda
+Usuario *-- Carrinho
+
+
+Produto o--o Vendedor
+ItemVenda --> Produto
+Vendedor o-- ItemVenda
+
+SistemaGerenciamento *-- Produto 
+SistemaGerenciamento *-- Usuario 
+SistemaGerenciamento *-- ItemVenda
+
+SistemaGerenciamento ..|> Filtro
+@enduml
